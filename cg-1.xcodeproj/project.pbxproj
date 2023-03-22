@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		60213D3329BF4754000B9B62 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60213D3229BF4754000B9B62 /* main.cpp */; };
+		60213D3B29BF476A000B9B62 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60213D3A29BF476A000B9B62 /* OpenGL.framework */; };
+		60213D3D29BF4782000B9B62 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60213D3C29BF4782000B9B62 /* GLUT.framework */; };
+		60213D4029C87E68000B9B62 /* shaderReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60213D3E29C87E68000B9B62 /* shaderReader.cpp */; };
+		60213D4629C88CEE000B9B62 /* geometryHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60213D4429C88CEE000B9B62 /* geometryHelper.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +29,15 @@
 /* Begin PBXFileReference section */
 		60213D2F29BF4754000B9B62 /* cg-1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cg-1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60213D3229BF4754000B9B62 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		60213D3A29BF476A000B9B62 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		60213D3C29BF4782000B9B62 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		60213D3E29C87E68000B9B62 /* shaderReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shaderReader.cpp; sourceTree = "<group>"; };
+		60213D3F29C87E68000B9B62 /* shaderReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shaderReader.hpp; sourceTree = "<group>"; };
+		60213D4229C88612000B9B62 /* test.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = test.vert; sourceTree = "<group>"; };
+		60213D4329C8864C000B9B62 /* test.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = test.frag; sourceTree = "<group>"; };
+		60213D4429C88CEE000B9B62 /* geometryHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = geometryHelper.cpp; sourceTree = "<group>"; };
+		60213D4529C88CEE000B9B62 /* geometryHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = geometryHelper.hpp; sourceTree = "<group>"; };
+		602C027A29C9A60700064930 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60213D3D29BF4782000B9B62 /* GLUT.framework in Frameworks */,
+				60213D3B29BF476A000B9B62 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +56,10 @@
 		60213D2629BF4754000B9B62 = {
 			isa = PBXGroup;
 			children = (
+				60213D4129C884AC000B9B62 /* shaders */,
 				60213D3129BF4754000B9B62 /* cg-1 */,
 				60213D3029BF4754000B9B62 /* Products */,
+				60213D3929BF476A000B9B62 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,8 +75,32 @@
 			isa = PBXGroup;
 			children = (
 				60213D3229BF4754000B9B62 /* main.cpp */,
+				60213D4429C88CEE000B9B62 /* geometryHelper.cpp */,
+				60213D4529C88CEE000B9B62 /* geometryHelper.hpp */,
+				60213D3E29C87E68000B9B62 /* shaderReader.cpp */,
+				60213D3F29C87E68000B9B62 /* shaderReader.hpp */,
+				602C027A29C9A60700064930 /* common.h */,
 			);
 			path = "cg-1";
+			sourceTree = "<group>";
+		};
+		60213D3929BF476A000B9B62 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60213D3C29BF4782000B9B62 /* GLUT.framework */,
+				60213D3A29BF476A000B9B62 /* OpenGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		60213D4129C884AC000B9B62 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				60213D4229C88612000B9B62 /* test.vert */,
+				60213D4329C8864C000B9B62 /* test.frag */,
+			);
+			name = shaders;
+			path = ../shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +160,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60213D4629C88CEE000B9B62 /* geometryHelper.cpp in Sources */,
 				60213D3329BF4754000B9B62 /* main.cpp in Sources */,
+				60213D4029C87E68000B9B62 /* shaderReader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,10 +209,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = GL_SILENCE_DEPRECATION;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -222,6 +262,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = GL_SILENCE_DEPRECATION;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -241,6 +282,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QCDQ72S86T;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = "-lGLEW";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -251,6 +295,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QCDQ72S86T;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = "-lGLEW";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
