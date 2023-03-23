@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		60213D3329BF4754000B9B62 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60213D3229BF4754000B9B62 /* main.cpp */; };
-		60213D3B29BF476A000B9B62 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60213D3A29BF476A000B9B62 /* OpenGL.framework */; };
-		60213D3D29BF4782000B9B62 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60213D3C29BF4782000B9B62 /* GLUT.framework */; };
 		60213D4029C87E68000B9B62 /* shaderReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60213D3E29C87E68000B9B62 /* shaderReader.cpp */; };
 		60213D4629C88CEE000B9B62 /* geometryHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60213D4429C88CEE000B9B62 /* geometryHelper.cpp */; };
+		602C028129CB515200064930 /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 602C027F29CB515200064930 /* geometry.cpp */; };
+		602C028429CB56B500064930 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 602C028229CB56B500064930 /* libglfw.3.3.dylib */; };
+		602C028529CB56B500064930 /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 602C028329CB56B500064930 /* libGLEW.2.2.0.dylib */; };
+		602C028629CB56BF00064930 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60213D3A29BF476A000B9B62 /* OpenGL.framework */; };
+		602C028929CB592500064930 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 602C028729CB592500064930 /* scene.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,7 +33,6 @@
 		60213D2F29BF4754000B9B62 /* cg-1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cg-1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60213D3229BF4754000B9B62 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		60213D3A29BF476A000B9B62 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		60213D3C29BF4782000B9B62 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		60213D3E29C87E68000B9B62 /* shaderReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shaderReader.cpp; sourceTree = "<group>"; };
 		60213D3F29C87E68000B9B62 /* shaderReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shaderReader.hpp; sourceTree = "<group>"; };
 		60213D4229C88612000B9B62 /* test.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = test.vert; sourceTree = "<group>"; };
@@ -38,6 +40,12 @@
 		60213D4429C88CEE000B9B62 /* geometryHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = geometryHelper.cpp; sourceTree = "<group>"; };
 		60213D4529C88CEE000B9B62 /* geometryHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = geometryHelper.hpp; sourceTree = "<group>"; };
 		602C027A29C9A60700064930 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		602C027F29CB515200064930 /* geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = geometry.cpp; sourceTree = "<group>"; };
+		602C028029CB515200064930 /* geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = geometry.hpp; sourceTree = "<group>"; };
+		602C028229CB56B500064930 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../../usr/local/Cellar/glfw/3.3.8/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
+		602C028329CB56B500064930 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../../usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
+		602C028729CB592500064930 /* scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
+		602C028829CB592500064930 /* scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = scene.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,8 +53,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60213D3D29BF4782000B9B62 /* GLUT.framework in Frameworks */,
-				60213D3B29BF476A000B9B62 /* OpenGL.framework in Frameworks */,
+				602C028429CB56B500064930 /* libglfw.3.3.dylib in Frameworks */,
+				602C028529CB56B500064930 /* libGLEW.2.2.0.dylib in Frameworks */,
+				602C028629CB56BF00064930 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +85,10 @@
 			children = (
 				60213D3229BF4754000B9B62 /* main.cpp */,
 				60213D4429C88CEE000B9B62 /* geometryHelper.cpp */,
+				602C027E29CB512600064930 /* geometry */,
 				60213D4529C88CEE000B9B62 /* geometryHelper.hpp */,
+				602C028729CB592500064930 /* scene.cpp */,
+				602C028829CB592500064930 /* scene.hpp */,
 				60213D3E29C87E68000B9B62 /* shaderReader.cpp */,
 				60213D3F29C87E68000B9B62 /* shaderReader.hpp */,
 				602C027A29C9A60700064930 /* common.h */,
@@ -87,7 +99,8 @@
 		60213D3929BF476A000B9B62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				60213D3C29BF4782000B9B62 /* GLUT.framework */,
+				602C028329CB56B500064930 /* libGLEW.2.2.0.dylib */,
+				602C028229CB56B500064930 /* libglfw.3.3.dylib */,
 				60213D3A29BF476A000B9B62 /* OpenGL.framework */,
 			);
 			name = Frameworks;
@@ -101,6 +114,15 @@
 			);
 			name = shaders;
 			path = ../shaders;
+			sourceTree = "<group>";
+		};
+		602C027E29CB512600064930 /* geometry */ = {
+			isa = PBXGroup;
+			children = (
+				602C027F29CB515200064930 /* geometry.cpp */,
+				602C028029CB515200064930 /* geometry.hpp */,
+			);
+			path = geometry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,8 +182,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				602C028929CB592500064930 /* scene.cpp in Sources */,
 				60213D4629C88CEE000B9B62 /* geometryHelper.cpp in Sources */,
 				60213D3329BF4754000B9B62 /* main.cpp in Sources */,
+				602C028129CB515200064930 /* geometry.cpp in Sources */,
 				60213D4029C87E68000B9B62 /* shaderReader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,7 +307,11 @@
 				DEVELOPMENT_TEAM = QCDQ72S86T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/glfw/3.3.8/lib,
+					/usr/local/Cellar/glew/2.2.0_1/lib,
+				);
 				OTHER_LDFLAGS = "-lGLEW";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -296,7 +324,11 @@
 				DEVELOPMENT_TEAM = QCDQ72S86T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/glfw/3.3.8/lib,
+					/usr/local/Cellar/glew/2.2.0_1/lib,
+				);
 				OTHER_LDFLAGS = "-lGLEW";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

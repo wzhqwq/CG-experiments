@@ -10,7 +10,9 @@
 
 #include <cstdio>
 #include <cstring>
+
 #include <GL/glew.h>
-#include <GLUT/GLUT.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #endif /* common_h */
