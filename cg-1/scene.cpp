@@ -7,9 +7,14 @@
 
 #include "scene.hpp"
 
-mat4 Scene::getMVPMatrix() {
+mat4 Scene::getVPMatrix() {
     changed = 0;
-    return projection * view * model;
+    updateMVPMatrix();
+    return VP;
+}
+void Scene::updateMVPMatrix() {
+    VP = projection * view;
+    invVP = inverse(VP);
 }
 
 void Scene::zoomTo(float scale, float mouseX, float mouseY) {
@@ -31,4 +36,15 @@ float Scene::getScale() {
 
 int Scene::isChanged() {
     return changed;
+}
+
+vec3 Scene::rayCast(double posX, double posY) {
+    if (changed) updateMVPMatrix();
+    glm::vec4 screenPos = glm::vec4((posX - x) / (w * 0.5f) - 1.0f,
+                                    -((posY - y) / (h * 0.5f) - 1.0f),
+                                    1.0f,
+                                    1.0f);
+    glm::vec4 worldPos = invVP * screenPos;
+
+    return glm::vec3(worldPos);
 }

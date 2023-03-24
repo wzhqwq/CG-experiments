@@ -7,34 +7,27 @@
 
 #include "common.h"
 #include "shaderReader.hpp"
-#include "geometryHelper.hpp"
 #include "scene.hpp"
+#include "dragging.hpp"
+#include "creator.hpp"
 
 using namespace glm;
 
 GLuint defaultProgram;
 GLuint defaultProgramMVPLocation;
-Geometry testTriagle;
 Scene *mainScene;
-
-GLfloat vertices[] = {
-    50.0f, -50.0f, 0.0f,
-    -50.0f, -50.0f, 0.0f,
-    0.0f, 50.0f, 0.0f,
-};
-GLfloat color[] = {
-    1.0f, 1.0f, 0.0f,
-};
+DragTool *currentTool = NULL;
 
 void render() {
     glClear(GL_COLOR_BUFFER_BIT);
     
     glUseProgram(defaultProgram);
     if (mainScene->isChanged()) {
-        glUniformMatrix4fv(defaultProgramMVPLocation, 1, GL_FALSE, &mainScene->getMVPMatrix()[0][0]);
+        glUniformMatrix4fv(defaultProgramMVPLocation, 1, GL_FALSE, &mainScene->getVPMatrix()[0][0]);
     }
-
-    paint(testTriagle);
+    for (auto geo : mainScene->shapes) {
+        geo->paint();
+    }
 }
 
 void loadShaders(char *shaderDir) {
@@ -60,14 +53,17 @@ void loadShaders(char *shaderDir) {
 }
 
 void mouseCallBack(GLFWwindow *window, double xpos, double ypos) {
-    static double lastX, lastY;
-    
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-        mainScene->move(xpos - lastX, ypos - lastY);
+//    static double lastX, lastY;
+//
+//    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+//        mainScene->move(xpos - lastX, ypos - lastY);
+//    }
+//
+//    lastX = xpos;
+//    lastY = ypos;
+    if (currentTool != NULL) {
+        currentTool->mouseMove(xpos, ypos, glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT));
     }
-    
-    lastX = xpos;
-    lastY = ypos;
 }
 
 int main(int argc, char * argv[]) {
@@ -96,8 +92,8 @@ int main(int argc, char * argv[]) {
     //    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 
     mainScene = new Scene(0, 0, 1000, 800);
+    currentTool = new LineCreator(mainScene);
     loadShaders(argv[1]);
-    testTriagle = getBufferedGeometry(vertices, 9, color);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glfwSetCursorPosCallback(window, mouseCallBack);
 

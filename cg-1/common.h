@@ -15,4 +15,6 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+using namespace glm;
+
 #endif /* common_h */

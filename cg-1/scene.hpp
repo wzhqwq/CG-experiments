@@ -9,9 +9,10 @@
 #define scene_hpp
 
 #include "common.h"
-#include <glm/gtc/matrix_transform.hpp>
+#include "geometry.hpp"
 
-using namespace glm;
+#include <glm/gtc/matrix_transform.hpp>
+#include <vector>
 
 class Scene {
 public:
@@ -22,18 +23,23 @@ public:
                            -1000.0f, 1000.0f
                            );
         view = lookAt(vec3(0, 0, 100), vec3(0, 0, 0), vec3(0, 1, 0));
-        model = mat4(1.0f);
     }
-    mat4 getMVPMatrix();
+    mat4 getVPMatrix();
     void zoomTo(float scale, float mouseX, float mouseY);
     void move(float offsetX, float offsetY);
     float getScale();
     int isChanged();
+    vec3 rayCast(double x, double y);
+    
+    vector<Geometry*> shapes;
+    vec3 currentColor = vec3(1.0f, 0.0f, 0.0f);
 private:
+    void updateMVPMatrix();
+    
     mat4 projection;
     mat4 view;
-    mat4 model;
-    mat4 mvp;
+    mat4 VP;
+    mat4 invVP;
     float currentScale = 1.0f;
     int changed = 1;
     int x, y, w, h;
