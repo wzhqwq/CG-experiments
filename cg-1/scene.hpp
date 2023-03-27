@@ -20,27 +20,36 @@ public:
         glViewport(_x, _y, _w, _h);
         projection = ortho(-(_w / 2.0f), _w / 2.0f,
                            -(_h / 2.0f), _h / 2.0f,
-                           -1000.0f, 1000.0f
+                           0.0f, 1000.0f
                            );
-        view = lookAt(vec3(0, 0, 100), vec3(0, 0, 0), vec3(0, 1, 0));
+        currentPos = vec3(0, 0, 1000.0f);
+        view = lookAt(currentPos, vec3(0, 0, 0), vec3(0, 1, 0));
     }
+    
     mat4 getVPMatrix();
-    void zoomTo(float scale, float mouseX, float mouseY);
-    void move(float offsetX, float offsetY);
+    void zoomTo(float scale, float centerX, float centerY);
+    void moveTo(float posX, float posY);
+    
     float getScale();
+    vec3 getPos();
     int isChanged();
-    vec3 rayCast(double x, double y);
+    
+    vec3 rayCast(float x, float y);
     
     vector<Geometry*> shapes;
     vec3 currentColor = vec3(1.0f, 0.0f, 0.0f);
+    
 private:
-    void updateMVPMatrix();
+    void updateVPMatrix();
     
     mat4 projection;
     mat4 view;
     mat4 VP;
     mat4 invVP;
+    
     float currentScale = 1.0f;
+    vec3 currentPos;
+    
     int changed = 1;
     int x, y, w, h;
 };

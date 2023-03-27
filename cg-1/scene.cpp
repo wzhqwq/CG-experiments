@@ -9,42 +9,41 @@
 
 mat4 Scene::getVPMatrix() {
     changed = 0;
-    updateMVPMatrix();
+    updateVPMatrix();
     return VP;
 }
-void Scene::updateMVPMatrix() {
+void Scene::updateVPMatrix() {
     VP = projection * view;
     invVP = inverse(VP);
 }
 
-void Scene::zoomTo(float scale, float mouseX, float mouseY) {
-    mouseX -= x;
-    mouseY -= y;
-    // MVP * p = (mX, mY, 0, 1)
-    // P * V' * M' * p = (mX, mY, 0, 1)
+void Scene::zoomTo(float scale, float centerX, float centerY) {
+    currentScale = scale;
+    float _w = w / currentScale, _h = h / currentScale;
+    projection = ortho(-(_w / 2.0f), _w / 2.0f,
+                       -(_h / 2.0f), _h / 2.0f,
+                       0.0f, 1000.0f
+                       );
     changed = 1;
 }
 
-void Scene::move(float offsetX, float offsetY) {
-    projection = translate(projection, vec3(offsetX, -offsetY, 0));
+void Scene::moveTo(float posX, float posY) {
+    currentPos = vec3(posX, posY, currentPos.z);
+    view = lookAt(currentPos, currentPos - vec3(0, 0, 100), vec3(0, 1, 0));
     changed = 1;
 }
 
-float Scene::getScale() {
-    return currentScale;
-}
+float Scene::getScale() { return currentScale; }
+vec3 Scene::getPos() { return currentPos; }
+int Scene::isChanged() { return changed; }
 
-int Scene::isChanged() {
-    return changed;
-}
+vec3 Scene::rayCast(float posX, float posY) {
+    if (changed) updateVPMatrix();
+    vec4 screenPos = vec4((posX - x) / (w * 0.5f) - 1.0f,
+                          -((posY - y) / (h * 0.5f) - 1.0f),
+                          1.0f,
+                          1.0f);
+    vec4 worldPos = invVP * screenPos;
 
-vec3 Scene::rayCast(double posX, double posY) {
-    if (changed) updateMVPMatrix();
-    glm::vec4 screenPos = glm::vec4((posX - x) / (w * 0.5f) - 1.0f,
-                                    -((posY - y) / (h * 0.5f) - 1.0f),
-                                    1.0f,
-                                    1.0f);
-    glm::vec4 worldPos = invVP * screenPos;
-
-    return glm::vec3(worldPos);
+    return vec3(worldPos);
 }

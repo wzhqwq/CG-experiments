@@ -7,9 +7,11 @@
 
 #include "dragging.hpp"
 
-void DragTool::mouseMove(double x, double y, int mouseState) {
-    vec3 p = scene->rayCast(x, y);
-    switch (mouseState) {
+void DragTool::mouseMove(double x, double y, int left, int right) {
+    vec3 p = realPos ? vec3(x, -y, 0) : scene->rayCast(x, y);
+    leftButton = left;
+    rightButton = right;
+    switch (left | right) {
         case GLFW_PRESS:
             switch (state) {
                 case Standby:
@@ -28,10 +30,18 @@ void DragTool::mouseMove(double x, double y, int mouseState) {
             break;
         
         case GLFW_RELEASE:
-            if (state == Dragging) {
-                updateEnd(p);
-                ended(p);
-                state = Standby;
+            switch (state) {
+                case Dragging:
+                    updateEnd(p);
+                    ended(p);
+                    state = Standby;
+                    break;
+                case Starting:
+                    clicked(p);
+                    state = Standby;
+                    break;
+                default:
+                    break;
             }
             break;
             
@@ -46,7 +56,46 @@ void DragTool::cancel() {
     state = Standby;
 }
 
-void DragTool::start(vec3 start, vec3 end) {}
-void DragTool::updateEnd(vec3 end) {}
-void DragTool::ended(vec3 end) {}
+void DragTool::start(vec3 start, vec3 end) {
+#ifdef TEST_BOUNDING
+    printf("start not bound\n");
+#endif
+}
+void DragTool::updateEnd(vec3 end) {
+#ifdef TEST_BOUNDING
+    printf("start not bound\n");
+#endif
+}
+void DragTool::ended(vec3 end) {
+#ifdef TEST_BOUNDING
+    printf("updateEnd not bound\n");
+#endif
+}
+void DragTool::clicked(vec3 p) {
+#ifdef TEST_BOUNDING
+    printf("clicked not bound\n");
+#endif
+}
+void DragTool::setKeyMods(int mods) {
+#ifdef TEST_BOUNDING
+    printf("setKeyMods not bound\n");
+#endif
+}
 
+void HandTool::start(vec3 start, vec3 end) {
+    realStartPoint = start;
+    startPoint = scene->rayCast(start.x, start.y);
+    startPos = scene->getPos();
+    startScale = scene->getScale();
+    updateEnd(end);
+}
+void HandTool::updateEnd(vec3 end) {
+    vec3 delta = end - realStartPoint;
+    if (leftButton) {
+        vec3 newPos = startPos - delta;
+        scene->moveTo(newPos.x, newPos.y);
+    }
+    else if (rightButton) {
+        scene->zoomTo(startScale * (1.0f + delta.x / 100.0f), startPoint.x, startPoint.y);
+    }
+}
