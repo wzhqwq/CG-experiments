@@ -39,8 +39,8 @@ int Scene::isChanged() { return changed; }
 
 vec3 Scene::rayCast(float posX, float posY) {
     if (changed) updateVPMatrix();
-    vec4 screenPos = vec4((posX - x) / (w * 0.5f) - 1.0f,
-                          -((posY - y) / (h * 0.5f) - 1.0f),
+    vec4 screenPos = vec4(posX / (w * 0.5f) - 1.0f,
+                          -(posY / (h * 0.5f) - 1.0f),
                           1.0f,
                           1.0f);
     vec4 worldPos = invVP * screenPos;

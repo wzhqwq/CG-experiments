@@ -14,8 +14,6 @@
 #include "geometry.hpp"
 
 class RubberBandCreator : public DragTool {
-public:
-    RubberBandCreator(Scene *s) : DragTool(s) {};
 protected:
     RubberBandGeometry *result;
     void updateEnd(vec3 end);
@@ -23,15 +21,11 @@ protected:
 };
 
 class LineCreator : public RubberBandCreator {
-public:
-    LineCreator(Scene *s) : RubberBandCreator(s) {};
 protected:
     void start(vec3 start, vec3 end);
 };
 
 class TriangleCreator : public RubberBandCreator {
-public:
-    TriangleCreator(Scene *s) : RubberBandCreator(s) {};
 protected:
     void start(vec3 start, vec3 end);
 };

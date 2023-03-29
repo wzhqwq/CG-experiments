@@ -8,7 +8,7 @@
 #include "dragging.hpp"
 
 void DragTool::mouseMove(double x, double y, int left, int right) {
-    vec3 p = realPos ? vec3(x, -y, 0) : scene->rayCast(x, y);
+    vec3 p = realPos ? vec3(x, -y, 0) : mainScene->rayCast(x, y);
     leftButton = left;
     rightButton = right;
     switch (left | right) {
@@ -84,18 +84,18 @@ void DragTool::setKeyMods(int mods) {
 
 void HandTool::start(vec3 start, vec3 end) {
     realStartPoint = start;
-    startPoint = scene->rayCast(start.x, start.y);
-    startPos = scene->getPos();
-    startScale = scene->getScale();
+    startPoint = mainScene->rayCast(start.x, start.y);
+    startPos = mainScene->getPos();
+    startScale = mainScene->getScale();
     updateEnd(end);
 }
 void HandTool::updateEnd(vec3 end) {
     vec3 delta = end - realStartPoint;
     if (leftButton) {
         vec3 newPos = startPos - delta;
-        scene->moveTo(newPos.x, newPos.y);
+        mainScene->moveTo(newPos.x, newPos.y);
     }
     else if (rightButton) {
-        scene->zoomTo(startScale * (1.0f + delta.x / 100.0f), startPoint.x, startPoint.y);
+        mainScene->zoomTo(startScale * (1.0f + delta.x / 100.0f), startPoint.x, startPoint.y);
     }
 }

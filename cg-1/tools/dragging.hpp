@@ -19,7 +19,7 @@ enum DragState {
 
 class DragTool {
 public:
-    DragTool(Scene *s): scene(s) {};
+    DragTool() {};
     void mouseMove(double x, double y, int left, int right);
     void cancel();
     virtual void setKeyMods(int mods);
@@ -29,7 +29,6 @@ protected:
     virtual void ended(vec3 end);
     virtual void clicked(vec3 p);
     
-    Scene *scene;
     int realPos = 0;
     int leftButton = 0, rightButton = 0;
 private:
@@ -39,7 +38,7 @@ private:
 
 class HandTool : public DragTool {
 public:
-    HandTool(Scene *s) : DragTool(s) {
+    HandTool() {
         realPos = 1;
     };
 protected:
@@ -51,8 +50,6 @@ private:
 };
 
 class ManipulateTool : public DragTool {
-public:
-    ManipulateTool(Scene *s) : DragTool(s) {};
 };
 
 #endif /* dragging_hpp */

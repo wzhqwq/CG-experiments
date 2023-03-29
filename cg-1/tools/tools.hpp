@@ -8,8 +8,13 @@
 #ifndef tools_hpp
 #define tools_hpp
 
+#include "common.h"
 #include "dragging.hpp"
 #include "creator.hpp"
+
+enum ToolName {
+    HAND, MANIPULATE, LINE, TRIANGLE, PEN
+};
 
 struct Tools {
     HandTool *hand;
@@ -19,15 +24,10 @@ struct Tools {
     TriangleCreator *triangle;
     
 };
-struct Cursors {
-    GLFWcursor *hand;
-    GLFWcursor *cross;
-};
 
-void initTools(Scene *scene);
-void initCursors();
+void initTools();
+void switchTool(ToolName name);
 
-extern Tools tools;
-extern Cursors cursors;
+extern DragTool *currentTool;
 
 #endif /* tools_hpp */

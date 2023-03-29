@@ -5,85 +5,86 @@
 //  Created by 王子涵 on 2023/3/13.
 //
 
-#define TEST_BOUNDING
+//#define TEST_BOUNDING
 
 #include "common.h"
-#include "shaderReader.hpp"
+#include "shader.hpp"
 #include "scene.hpp"
 #include "tools.hpp"
+#include "colorPicker.hpp"
+#include "sideBar.hpp"
 
 using namespace glm;
 
-GLuint shapeProgram;
-GLuint toolProgram;
-// HSL Picker
-GLuint satureLightPickerProgram;
-GLuint huePickerProgram;
+GLuint shapeMVPLocation, colorPickerMVPLocation;
 
-GLuint shapeMVPLocation;
-
-Scene *mainScene;
+Scene *mainScene, *fixedScene;
 DragTool *currentTool = NULL;
+ColorPicker *picker;
+SideBar *sideBar;
 
 void render() {
     glClear(GL_COLOR_BUFFER_BIT);
     
-    glUseProgram(shapeProgram);
+    glUseProgram(programs.shapeProgram);
     if (mainScene->isChanged()) {
         glUniformMatrix4fv(shapeMVPLocation, 1, GL_FALSE, &mainScene->getVPMatrix()[0][0]);
     }
     for (auto geo : mainScene->shapes) {
         geo->paint();
     }
+    
+    picker->paint();
+    sideBar->paint();
 }
 
 void loadShaders(char *shaderDir) {
     if (shaderDir[strlen(shaderDir) - 1] == '/') {
         shaderDir[strlen(shaderDir) - 1] = '\0';
     }
-    shapeProgram = glCreateProgram();
+    initPrograms(shaderDir);
     
-    loadVertexShader(shaderDir, "shape.vert", shapeProgram);
-    loadFragmentShader(shaderDir, "shape.frag", shapeProgram);
+    shapeMVPLocation = glGetUniformLocation(programs.shapeProgram, "MVP");
+    colorPickerMVPLocation = glGetUniformLocation(programs.pickerProgram, "MVP");
     
-    glLinkProgram(shapeProgram);
-
-    char log[1000];
-    int logLength;
-    glGetProgramInfoLog(shapeProgram, 1000, &logLength, log);
-    if (logLength) {
-        log[logLength] = '\0';
-        printf("program linking error:\n%s\n", log);
-    }
-    
-    shapeMVPLocation = glGetUniformLocation(shapeProgram, "MVP");
+    glUseProgram(programs.fixedProgram);
+    mat4 flippedMVP = scale(fixedScene->getVPMatrix(), vec3(1.0f, -1.0f, 1.0f));
+    glUniformMatrix4fv(shapeMVPLocation, 1, GL_FALSE, &flippedMVP[0][0]);
+    glUseProgram(programs.pickerProgram);
+    glUniformMatrix4fv(colorPickerMVPLocation, 1, GL_FALSE, &flippedMVP[0][0]);
 }
 
-void mouseCallback(GLFWwindow *window, double xpos, double ypos) {
+void mouseMoveCallback(GLFWwindow *window, double xpos, double ypos) {
     currentTool->mouseMove(xpos, ypos, glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT), glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT));
+    picker->mouseMove(xpos, ypos, glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT));
+}
+
+void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods) {
+    currentTool->setKeyMods(mods);
+    double x, y;
+    glfwGetCursorPos(window, &x, &y);
+    if (picker->mouseMove(x, y, action)) return;
+    if (sideBar->mouseMove(x, y, action)) return;
+    currentTool->mouseMove(x, y, button == GLFW_MOUSE_BUTTON_LEFT ? action : GLFW_RELEASE, button == GLFW_MOUSE_BUTTON_RIGHT ? action : GLFW_RELEASE);
 }
 
 void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if (action == GLFW_RELEASE) {
         switch (key) {
             case GLFW_KEY_H:
-                currentTool = tools.hand;
-                glfwSetCursor(window, cursors.hand);
+                switchTool(HAND);
                 break;
             case GLFW_KEY_V:
-                currentTool = tools.manipulate;
-                glfwSetCursor(window, NULL);
+                switchTool(MANIPULATE);
                 break;
             case GLFW_KEY_L:
-                currentTool = tools.line;
-                glfwSetCursor(window, cursors.cross);
+                switchTool(LINE);
                 break;
             case GLFW_KEY_T:
-                currentTool = tools.triangle;
-                glfwSetCursor(window, cursors.cross);
+                switchTool(TRIANGLE);
                 break;
             case GLFW_KEY_P:
-                glfwSetCursor(window, cursors.cross);
+                switchTool(PEN);
                 break;
             default:
                 break;
@@ -117,7 +118,7 @@ int main(int argc, char * argv[]) {
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     
-    GLFWwindow *window = glfwCreateWindow(1000, 800, "experiment 1", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "experiment 1", NULL, NULL);
     if (!window) {
         printf("Window Creation Failed.\n");
         return -1;
@@ -128,14 +129,18 @@ int main(int argc, char * argv[]) {
         printf("GLEW Initialization Failed.\n");
         return -1;
     }
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-    mainScene = new Scene(0, 0, 1000, 800);
-    initTools(mainScene);
-    currentTool = tools.manipulate;
+    mainScene = new Scene(WIDTH, HEIGHT);
+    fixedScene = new Scene(WIDTH, HEIGHT);
+    fixedScene->moveTo(WIDTH / 2, -HEIGHT / 2);
+    initTools();
+    picker = new ColorPicker();
+    sideBar = new SideBar();
     loadShaders(argv[1]);
 
-    glfwSetCursorPosCallback(window, mouseCallback);
+    glfwSetCursorPosCallback(window, mouseMoveCallback);
+    glfwSetMouseButtonCallback(window, mouseButtonCallback);
     glfwSetKeyCallback(window, keyCallback);
     glfwSetScrollCallback(window, scrollBallback);
 

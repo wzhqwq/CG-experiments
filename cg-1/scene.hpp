@@ -11,13 +11,12 @@
 #include "common.h"
 #include "geometry.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 
 class Scene {
 public:
-    Scene(int _x, int _y, int _w, int _h): x(_x), y(_y), w(_w), h(_h) {
-        glViewport(_x, _y, _w, _h);
+    Scene(int _w, int _h): w(_w), h(_h) {
+        glViewport(0, 0, _w, _h);
         projection = ortho(-(_w / 2.0f), _w / 2.0f,
                            -(_h / 2.0f), _h / 2.0f,
                            0.0f, 1000.0f
@@ -38,7 +37,7 @@ public:
     
     vector<Geometry*> shapes;
     vec3 currentColor = vec3(1.0f, 0.0f, 0.0f);
-    
+    DrawMode currentDrawMode = Filled;
 private:
     void updateVPMatrix();
     
@@ -51,7 +50,9 @@ private:
     vec3 currentPos;
     
     int changed = 1;
-    int x, y, w, h;
+    int w, h;
 };
+
+extern Scene *mainScene, *fixedScene;
 
 #endif /* scene_hpp */

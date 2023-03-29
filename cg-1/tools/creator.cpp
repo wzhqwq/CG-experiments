@@ -15,11 +15,14 @@ void RubberBandCreator::updateEnd(vec3 end) {
 }
 
 void LineCreator::start(vec3 start, vec3 end) {
-    result = new Line(scene->currentColor, start, end);
-    scene->shapes.push_back(result);
+    result = new Line(start, end);
+    result->setColor(mainScene->currentColor);
+    mainScene->shapes.push_back(result);
 }
 
 void TriangleCreator::start(vec3 start, vec3 end) {
-    result = new Triangle(scene->currentColor, start, end);
-    scene->shapes.push_back(result);
+    result = new Triangle(start, end);
+    result->setColor(mainScene->currentColor);
+    result->setMode(mainScene->currentDrawMode);
+    mainScene->shapes.push_back(result);
 }

@@ -14,6 +14,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#define WIDTH 1000
+#define HEIGHT 800
+#define PICKER_SIZE 300
+#define BTN_SIZE 20
+#define BTN_GAP 5
 
 using namespace glm;
 
