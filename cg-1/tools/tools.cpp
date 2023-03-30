@@ -14,6 +14,8 @@ void initTools() {
     tools.hand = new HandTool();
     tools.line = new LineCreator();
     tools.triangle = new TriangleCreator();
+    tools.rect = new RectCreator();
+    tools.circle = new CircleCreator();
     
     currentTool = tools.manipulate;
 }
@@ -31,6 +33,12 @@ void switchTool(ToolName name) {
             break;
         case TRIANGLE:
             currentTool = tools.triangle;
+            break;
+        case RECT:
+            currentTool = tools.rect;
+            break;
+        case CIRCLE:
+            currentTool = tools.circle;
             break;
         case PEN:
             break;

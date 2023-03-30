@@ -55,9 +55,15 @@ void Geometry::applyTransformation(mat4 matrix) {
 void Geometry::translate(float x, float y) {
     applyTransformation(glm::translate(mat4(1.0f), vec3(x, y, 0)));
 }
-void Geometry::setZIndex(float index) {
+void Geometry::setZIndex(int index) {
     applyTransformation(glm::translate(mat4(1.0f), vec3(0, 0, index - currentZIndex)));
     currentZIndex = index;
+}
+int Geometry::getZIndex() {
+    return currentZIndex;
+}
+int Geometry::isIn(vec3 point) {
+    return 0;
 }
 
 GLuint Geometry::getVAO() {

@@ -33,11 +33,13 @@ public:
     void paint();
     void setColor(vec3 color);
     virtual void setMode(DrawMode mode);
-    
+    virtual int isIn(vec3 point);
+
     void applyTransformation(mat4 matrix);
     void translate(float x, float y);
-    void setZIndex(float index);
-    
+    void setZIndex(int index);
+    int getZIndex();
+
     GLuint getVAO();
 protected:
     void updateBuffer();
@@ -48,7 +50,7 @@ protected:
     vector<vec3> vertices;
     GLenum renderType = GL_TRIANGLES;
     vec3 currentColor;
-    float currentZIndex = 0.0f;
+    int currentZIndex = 0;
 };
 
 class RubberBandGeometry : public Geometry {
@@ -67,6 +69,7 @@ public:
     
     void setMode(DrawMode mode);
     void updateEnd(vec3 end);
+    int isIn(vec3 point);
 };
 
 class Triangle : public RubberBandGeometry {
@@ -80,6 +83,7 @@ public:
     }
     
     void updateEnd(vec3 end);
+    int isIn(vec3 point);
 private:
     vec3 startPoint;
 };
@@ -100,6 +104,7 @@ public:
     
     void setMode(DrawMode mode);
     void updateEnd(vec3 end);
+    int isIn(vec3 point);
 private:
     vec3 startPoint;
 };
@@ -109,8 +114,8 @@ public:
     Circle() : Circle(vec3(-0.5f, -0.5f, 0.0f), vec3(0.5f, 0.5f, 0.0f)) {}
     Circle(vec3 start, vec3 end) : RubberBandGeometry(), startPoint(start) {
         vec3 center = (start + end) * 0.5f;
-        float width = abs(start.x - end.x);
-        float height = abs(start.y - end.y);
+        width = abs(start.x - end.x);
+        height = abs(start.y - end.y);
         vertices.push_back(center);
         int split = width * M_PI / 4;
         for (int i = 0; i < split; i++) {
@@ -123,8 +128,10 @@ public:
     
     void setMode(DrawMode mode);
     void updateEnd(vec3 end);
+    int isIn(vec3 point);
 private:
     vec3 startPoint;
+    float width, height;
 };
 
 #endif /* geometry_hpp */

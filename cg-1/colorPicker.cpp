@@ -54,7 +54,7 @@ int ColorPicker::mouseMove(float x, float y, int button) {
     if (!opened) return 0;
     if (button == GLFW_RELEASE) {
         if (status != Idle) status = Idle;
-        return 0;
+        return 1;
     }
     
     vec2 inPos = vec2(fixedScene->rayCast(x, y));

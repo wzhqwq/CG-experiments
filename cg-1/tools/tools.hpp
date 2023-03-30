@@ -13,7 +13,7 @@
 #include "creator.hpp"
 
 enum ToolName {
-    HAND, MANIPULATE, LINE, TRIANGLE, PEN
+    HAND, MANIPULATE, LINE, TRIANGLE, RECT, CIRCLE, PEN
 };
 
 struct Tools {
@@ -22,7 +22,8 @@ struct Tools {
     // TODO: vertex tool
     LineCreator *line;
     TriangleCreator *triangle;
-    
+    RectCreator *rect;
+    CircleCreator *circle;
 };
 
 void initTools();

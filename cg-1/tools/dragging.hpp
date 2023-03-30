@@ -24,16 +24,16 @@ public:
     void cancel();
     virtual void setKeyMods(int mods);
 protected:
-    virtual void start(vec3 start, vec3 end);
-    virtual void updateEnd(vec3 end);
-    virtual void ended(vec3 end);
+    virtual void dragStart(vec3 start, vec3 end);
+    virtual void dragMove(vec3 end);
+    virtual void dragStop(vec3 end);
     virtual void clicked(vec3 p);
     
     int realPos = 0;
     int leftButton = 0, rightButton = 0;
+    vec3 lastPoint;
 private:
     DragState state = Standby;
-    vec3 lastPoint;
 };
 
 class HandTool : public DragTool {
@@ -42,14 +42,21 @@ public:
         realPos = 1;
     };
 protected:
-    void start(vec3 start, vec3 end);
-    void updateEnd(vec3 end);
+    void dragStart(vec3 start, vec3 end);
+    void dragMove(vec3 end);
 private:
     vec3 startPoint, startPos, realStartPoint;
     float startScale;
 };
 
 class ManipulateTool : public DragTool {
+protected:
+    void clicked(vec3 p);
+    void dragStart(vec3 start, vec3 end);
+    void dragMove(vec3 end);
+    void dragStop(vec3 end);
+private:
+    Geometry *controlledItem = NULL;
 };
 
 #endif /* dragging_hpp */

@@ -7,22 +7,38 @@
 
 #include "creator.hpp"
 
-void RubberBandCreator::ended(vec3 end) {
+void RubberBandCreator::dragStop(vec3 end) {
     result = NULL;
 }
-void RubberBandCreator::updateEnd(vec3 end) {
+void RubberBandCreator::dragMove(vec3 end) {
     result->updateEnd(end);
 }
 
-void LineCreator::start(vec3 start, vec3 end) {
+void LineCreator::dragStart(vec3 start, vec3 end) {
     result = new Line(start, end);
     result->setColor(mainScene->currentColor);
+    result->setZIndex(mainScene->shapes.size());
     mainScene->shapes.push_back(result);
 }
 
-void TriangleCreator::start(vec3 start, vec3 end) {
+void TriangleCreator::dragStart(vec3 start, vec3 end) {
     result = new Triangle(start, end);
     result->setColor(mainScene->currentColor);
     result->setMode(mainScene->currentDrawMode);
+    result->setZIndex(mainScene->shapes.size());
+    mainScene->shapes.push_back(result);
+}
+void RectCreator::dragStart(vec3 start, vec3 end) {
+    result = new Rect(start, end);
+    result->setColor(mainScene->currentColor);
+    result->setMode(mainScene->currentDrawMode);
+    result->setZIndex(mainScene->shapes.size());
+    mainScene->shapes.push_back(result);
+}
+void CircleCreator::dragStart(vec3 start, vec3 end) {
+    result = new Circle(start, end);
+    result->setColor(mainScene->currentColor);
+    result->setMode(mainScene->currentDrawMode);
+    result->setZIndex(mainScene->shapes.size());
     mainScene->shapes.push_back(result);
 }

@@ -30,6 +30,8 @@ void SideBar::create() {
     createBtn();
     createBtn();
     createBtn();
+    createBtn();
+    createBtn();
     pickerBtn = createBtn();
 }
 
@@ -56,9 +58,15 @@ int SideBar::clicked(int id) {
             switchTool(TRIANGLE);
             break;
         case 4:
-            switchTool(PEN);
+            switchTool(RECT);
             break;
         case 5:
+            switchTool(CIRCLE);
+            break;
+        case 6:
+            switchTool(PEN);
+            break;
+        case 7:
             picker->open();
             break;
             

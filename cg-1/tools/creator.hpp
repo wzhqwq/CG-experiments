@@ -16,18 +16,28 @@
 class RubberBandCreator : public DragTool {
 protected:
     RubberBandGeometry *result;
-    void updateEnd(vec3 end);
-    void ended(vec3 end);
+    void dragMove(vec3 end);
+    void dragStop(vec3 end);
 };
 
 class LineCreator : public RubberBandCreator {
 protected:
-    void start(vec3 start, vec3 end);
+    void dragStart(vec3 start, vec3 end);
 };
 
 class TriangleCreator : public RubberBandCreator {
 protected:
-    void start(vec3 start, vec3 end);
+    void dragStart(vec3 start, vec3 end);
+};
+
+class RectCreator : public RubberBandCreator {
+protected:
+    void dragStart(vec3 start, vec3 end);
+};
+
+class CircleCreator : public RubberBandCreator {
+protected:
+    void dragStart(vec3 start, vec3 end);
 };
 
 #endif /* creator_hpp */

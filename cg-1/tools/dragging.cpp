@@ -18,11 +18,11 @@ void DragTool::mouseMove(double x, double y, int left, int right) {
                     state = Starting;
                     break;
                 case Starting:
-                    start(lastPoint, p);
+                    dragStart(lastPoint, p);
                     state = Dragging;
                     break;
                 case Dragging:
-                    updateEnd(p);
+                    dragMove(p);
                     break;
                 default:
                     break;
@@ -32,8 +32,8 @@ void DragTool::mouseMove(double x, double y, int left, int right) {
         case GLFW_RELEASE:
             switch (state) {
                 case Dragging:
-                    updateEnd(p);
-                    ended(p);
+                    dragMove(p);
+                    dragStop(p);
                     state = Standby;
                     break;
                 case Starting:
@@ -52,21 +52,21 @@ void DragTool::mouseMove(double x, double y, int left, int right) {
 }
 
 void DragTool::cancel() {
-    ended(lastPoint);
+    dragStop(lastPoint);
     state = Standby;
 }
 
-void DragTool::start(vec3 start, vec3 end) {
+void DragTool::dragStart(vec3 start, vec3 end) {
 #ifdef TEST_BOUNDING
     printf("start not bound\n");
 #endif
 }
-void DragTool::updateEnd(vec3 end) {
+void DragTool::dragMove(vec3 end) {
 #ifdef TEST_BOUNDING
     printf("start not bound\n");
 #endif
 }
-void DragTool::ended(vec3 end) {
+void DragTool::dragStop(vec3 end) {
 #ifdef TEST_BOUNDING
     printf("updateEnd not bound\n");
 #endif
@@ -82,14 +82,14 @@ void DragTool::setKeyMods(int mods) {
 #endif
 }
 
-void HandTool::start(vec3 start, vec3 end) {
+void HandTool::dragStart(vec3 start, vec3 end) {
     realStartPoint = start;
     startPoint = mainScene->rayCast(start.x, start.y);
     startPos = mainScene->getPos();
     startScale = mainScene->getScale();
-    updateEnd(end);
+    dragMove(end);
 }
-void HandTool::updateEnd(vec3 end) {
+void HandTool::dragMove(vec3 end) {
     vec3 delta = end - realStartPoint;
     if (leftButton) {
         vec3 newPos = startPos - delta;
@@ -98,4 +98,30 @@ void HandTool::updateEnd(vec3 end) {
     else if (rightButton) {
         mainScene->zoomTo(startScale * (1.0f + delta.x / 100.0f), startPoint.x, startPoint.y);
     }
+}
+
+void ManipulateTool::clicked(vec3 p) {
+    int maxZIndex = -1;
+    for (auto geo : mainScene->shapes) {
+        if (geo->getZIndex() > maxZIndex && geo->isIn(p)) {
+            controlledItem = geo;
+            maxZIndex = geo->getZIndex();
+        }
+    }
+    if (maxZIndex == -1) controlledItem = NULL;
+}
+void ManipulateTool::dragStart(vec3 start, vec3 end) {
+    if (!controlledItem) {
+        clicked(start);
+    }
+    dragMove(end);
+}
+void ManipulateTool::dragMove(vec3 end) {
+    if (controlledItem) {
+        vec3 delta = end - lastPoint;
+        controlledItem->translate(delta.x, delta.y);
+    }
+}
+void ManipulateTool::dragStop(vec3 end) {
+    controlledItem = NULL;
 }
