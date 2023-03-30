@@ -57,9 +57,9 @@ int ColorPicker::mouseMove(float x, float y, int button) {
         return 1;
     }
     
-    vec2 inPos = vec2(fixedScene->rayCast(x, y));
+    vec2 inPos = vec2(fixedScene->rayCast(x, -y));
     inPos.x = (inPos.x - (PICKER_SIZE / 2 + BTN_SIZE + BTN_GAP * 2)) / PICKER_SIZE;
-    inPos.y = (inPos.y + (PICKER_SIZE / 2 + BTN_GAP)) / PICKER_SIZE;
+    inPos.y = -(inPos.y - (PICKER_SIZE / 2 + BTN_GAP)) / PICKER_SIZE;
         
     if (status == Idle) {
         float d = length(inPos);        

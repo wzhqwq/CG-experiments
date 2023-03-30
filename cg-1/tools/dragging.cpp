@@ -104,24 +104,25 @@ void ManipulateTool::clicked(vec3 p) {
     int maxZIndex = -1;
     for (auto geo : mainScene->shapes) {
         if (geo->getZIndex() > maxZIndex && geo->isIn(p)) {
-            controlledItem = geo;
+            mainScene->selectedItem = geo;
             maxZIndex = geo->getZIndex();
         }
     }
-    if (maxZIndex == -1) controlledItem = NULL;
+    if (maxZIndex == -1) mainScene->selectedItem = NULL;
 }
 void ManipulateTool::dragStart(vec3 start, vec3 end) {
-    if (!controlledItem) {
-        clicked(start);
+    clicked(start);
+    if (mainScene->selectedItem) {
+        dragging = 1;
+        dragMove(end);
     }
-    dragMove(end);
 }
 void ManipulateTool::dragMove(vec3 end) {
-    if (controlledItem) {
+    if (dragging) {
         vec3 delta = end - lastPoint;
-        controlledItem->translate(delta.x, delta.y);
+        mainScene->selectedItem->translate(delta.x, delta.y);
     }
 }
 void ManipulateTool::dragStop(vec3 end) {
-    controlledItem = NULL;
+    dragging = 0;
 }

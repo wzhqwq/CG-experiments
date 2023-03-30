@@ -17,9 +17,10 @@ void SideBar::paint() {
 
 int SideBar::mouseMove(float x, float y, int button) {
     if (button != GLFW_PRESS) return 0;
-    vec3 pos = fixedScene->rayCast(x, y);
-    if (x > BTN_GAP && x < BTN_SIZE + BTN_GAP) {
-        return clicked((int) (y / (BTN_SIZE + BTN_GAP)));
+    vec3 pos = fixedScene->rayCast(x, -y);
+    printf("%.2f %.2f\n", pos.x, pos.y);
+    if (pos.x > BTN_GAP && pos.x < BTN_SIZE + BTN_GAP) {
+        return clicked((int) ((pos.y - BTN_GAP) / (BTN_SIZE + BTN_GAP)));
     }
     return 0;
 }
@@ -28,7 +29,8 @@ void SideBar::create() {
     createBtn();
     createBtn();
     createBtn();
-    createBtn();
+    Rect *triangleBtn = createBtn();
+//    triangleBtn->
     createBtn();
     createBtn();
     createBtn();

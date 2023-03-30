@@ -36,6 +36,7 @@ void Geometry::setMode(DrawMode mode) {
         default:
             break;
     }
+    updateBuffer();
 }
 
 void Geometry::updateBuffer() {
@@ -49,6 +50,8 @@ void Geometry::applyTransformation(mat4 matrix) {
     for (int i = 0; i < vertices.size(); i++) {
         vertices[i] = vec3(matrix * vec4(vertices[i], 1.0f));
     }
+    bottomLeft = vec3(matrix * vec4(bottomLeft, 1.0f));
+    topRight = vec3(matrix * vec4(topRight, 1.0f));
     updateBuffer();
 }
 
@@ -65,6 +68,7 @@ int Geometry::getZIndex() {
 int Geometry::isIn(vec3 point) {
     return 0;
 }
+void Geometry::setTexture(GLuint texture) {}
 
 GLuint Geometry::getVAO() {
     return VAO;

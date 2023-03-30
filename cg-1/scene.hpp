@@ -38,6 +38,7 @@ public:
     vector<Geometry*> shapes;
     vec3 currentColor = vec3(1.0f, 0.0f, 0.0f);
     DrawMode currentDrawMode = Filled;
+    Geometry *selectedItem = NULL;
 private:
     void updateVPMatrix();
     

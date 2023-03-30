@@ -44,6 +44,8 @@ void switchTool(ToolName name) {
             break;
         default:
             break;
-
+    }
+    if (name != MANIPULATE && mainScene->selectedItem) {
+        mainScene->selectedItem = NULL;
     }
 }

@@ -17,6 +17,7 @@ struct Programs {
     GLuint fixedProgram;
 };
 
+GLuint loadProgram(const char *shaderDir, const char *vert, const char *frag);
 void initPrograms(const char *shaderDir);
 
 extern Programs programs;

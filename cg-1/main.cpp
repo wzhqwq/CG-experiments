@@ -13,6 +13,7 @@
 #include "tools.hpp"
 #include "colorPicker.hpp"
 #include "sideBar.hpp"
+#include "texture.hpp"
 
 using namespace glm;
 
@@ -94,6 +95,22 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
             case GLFW_KEY_P:
                 switchTool(PEN);
                 break;
+            case GLFW_KEY_SLASH:
+                if (mainScene->selectedItem) {
+                    mainScene->selectedItem->setMode(Outlined);
+                }
+                else {
+                    mainScene->currentDrawMode = Outlined;
+                }
+                break;
+            case GLFW_KEY_PERIOD:
+                if (mainScene->selectedItem) {
+                    mainScene->selectedItem->setMode(Filled);
+                }
+                else {
+                    mainScene->currentDrawMode = Filled;
+                }
+                break;
             default:
                 break;
         }
@@ -144,10 +161,12 @@ int main(int argc, char * argv[]) {
     mainScene = new Scene(WIDTH, HEIGHT);
     fixedScene = new Scene(WIDTH, HEIGHT);
     fixedScene->moveTo(WIDTH / 2, -HEIGHT / 2);
+    loadShaders(argv[1]);
+    initTexture(argv[2]);
+    
     initTools();
     picker = new ColorPicker();
     sideBar = new SideBar();
-    loadShaders(argv[1]);
 
     glfwSetCursorPosCallback(window, mouseMoveCallback);
     glfwSetMouseButtonCallback(window, mouseButtonCallback);

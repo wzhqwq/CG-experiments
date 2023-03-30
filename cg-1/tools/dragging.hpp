@@ -56,7 +56,7 @@ protected:
     void dragMove(vec3 end);
     void dragStop(vec3 end);
 private:
-    Geometry *controlledItem = NULL;
+    int dragging = 0;
 };
 
 #endif /* dragging_hpp */

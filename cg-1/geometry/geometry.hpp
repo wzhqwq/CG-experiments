@@ -34,6 +34,7 @@ public:
     void setColor(vec3 color);
     virtual void setMode(DrawMode mode);
     virtual int isIn(vec3 point);
+    virtual void setTexture(GLuint texture);
 
     void applyTransformation(mat4 matrix);
     void translate(float x, float y);
@@ -51,6 +52,7 @@ protected:
     GLenum renderType = GL_TRIANGLES;
     vec3 currentColor;
     int currentZIndex = 0;
+    vec3 bottomLeft, topRight;
 };
 
 class RubberBandGeometry : public Geometry {
@@ -64,6 +66,8 @@ public:
         vertices.push_back(start);
         vertices.push_back(end);
         updateBuffer();
+        bottomLeft = min(start, end);
+        topRight = max(start, end);
         renderType = GL_LINE_STRIP;
     }
     
@@ -79,6 +83,8 @@ public:
         vertices.push_back(vec3(start.x, end.y, 0));
         vertices.push_back(vec3(end.x, end.y, 0));
         updateBuffer();
+        bottomLeft = min(start, end);
+        topRight = max(start, end);
         renderType = GL_LINE_LOOP;
     }
     
@@ -97,8 +103,9 @@ public:
         vertices.push_back(vec3(start.x, end.y, 0.0f));
         vertices.push_back(end);
         vertices.push_back(vec3(end.x, start.y, 0.0f));
-        vertices.push_back(start);
         updateBuffer();
+        bottomLeft = min(start, end);
+        topRight = max(start, end);
         renderType = GL_LINE_LOOP;
     }
     
@@ -116,12 +123,13 @@ public:
         vec3 center = (start + end) * 0.5f;
         width = abs(start.x - end.x);
         height = abs(start.y - end.y);
-        vertices.push_back(center);
         int split = width * M_PI / 4;
         for (int i = 0; i < split; i++) {
             float angle = 2 * M_PI / split * i;
             vertices.push_back(vec3(sin(angle) * width / 2, cos(angle) * height / 2, 0.0f));
         }
+        bottomLeft = min(start, end);
+        topRight = max(start, end);
         updateBuffer();
         renderType = GL_LINE_LOOP;
     }

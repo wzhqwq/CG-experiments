@@ -12,6 +12,8 @@
 		600788DD29D132A2004D837B /* colorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 600788DB29D132A2004D837B /* colorPicker.cpp */; };
 		600788E229D148CC004D837B /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 600788E029D148CC004D837B /* shader.cpp */; };
 		600788E729D3BE3F004D837B /* sideBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 600788E529D3BE3F004D837B /* sideBar.cpp */; };
+		600788EB29D40E8C004D837B /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 600788E929D40E8C004D837B /* texture.cpp */; };
+		600788F529D53CAA004D837B /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 600788F429D53CAA004D837B /* stb_image.cpp */; };
 		60213D3329BF4754000B9B62 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60213D3229BF4754000B9B62 /* main.cpp */; };
 		60213D4029C87E68000B9B62 /* shaderReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60213D3E29C87E68000B9B62 /* shaderReader.cpp */; };
 		602C028129CB515200064930 /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 602C027F29CB515200064930 /* geometry.cpp */; };
@@ -42,19 +44,24 @@
 		600788D929CD9B3D004D837B /* tools.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tools.hpp; sourceTree = "<group>"; };
 		600788DB29D132A2004D837B /* colorPicker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = colorPicker.cpp; sourceTree = "<group>"; };
 		600788DC29D132A2004D837B /* colorPicker.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = colorPicker.hpp; sourceTree = "<group>"; };
-		600788DE29D1332B004D837B /* colorPicker.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = colorPicker.vert; sourceTree = "<group>"; };
-		600788DF29D13343004D837B /* colorPicker.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = colorPicker.frag; sourceTree = "<group>"; };
 		600788E029D148CC004D837B /* shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shader.cpp; sourceTree = "<group>"; };
 		600788E129D148CC004D837B /* shader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shader.hpp; sourceTree = "<group>"; };
 		600788E529D3BE3F004D837B /* sideBar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sideBar.cpp; sourceTree = "<group>"; };
 		600788E629D3BE3F004D837B /* sideBar.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = sideBar.hpp; sourceTree = "<group>"; };
+		600788E829D40E4B004D837B /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		600788E929D40E8C004D837B /* texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
+		600788EA29D40E8C004D837B /* texture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = texture.hpp; sourceTree = "<group>"; };
+		600788EF29D41125004D837B /* shape.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shape.frag; sourceTree = "<group>"; };
+		600788F029D41125004D837B /* colorPicker.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = colorPicker.vert; sourceTree = "<group>"; };
+		600788F129D41125004D837B /* shape.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shape.vert; sourceTree = "<group>"; };
+		600788F229D41125004D837B /* colorPicker.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = colorPicker.frag; sourceTree = "<group>"; };
+		600788F429D53CAA004D837B /* stb_image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
+		600788F729D5B886004D837B /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangle.png; sourceTree = "<group>"; };
 		60213D2F29BF4754000B9B62 /* cg-1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cg-1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60213D3229BF4754000B9B62 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		60213D3A29BF476A000B9B62 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		60213D3E29C87E68000B9B62 /* shaderReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shaderReader.cpp; sourceTree = "<group>"; };
 		60213D3F29C87E68000B9B62 /* shaderReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shaderReader.hpp; sourceTree = "<group>"; };
-		60213D4229C88612000B9B62 /* shape.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shape.vert; sourceTree = "<group>"; };
-		60213D4329C8864C000B9B62 /* shape.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = shape.frag; sourceTree = "<group>"; };
 		602C027A29C9A60700064930 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		602C027F29CB515200064930 /* geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = geometry.cpp; sourceTree = "<group>"; };
 		602C028029CB515200064930 /* geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = geometry.hpp; sourceTree = "<group>"; };
@@ -84,22 +91,44 @@
 		600788D729CD41C3004D837B /* tools */ = {
 			isa = PBXGroup;
 			children = (
-				602C028F29CC54C600064930 /* creator.cpp */,
+				600788E829D40E4B004D837B /* stb_image.h */,
+				600788F429D53CAA004D837B /* stb_image.cpp */,
 				600788D829CD9B3D004D837B /* tools.cpp */,
 				600788D929CD9B3D004D837B /* tools.hpp */,
-				602C029029CC54C600064930 /* creator.hpp */,
 				600788D429CD41B4004D837B /* dragging.cpp */,
 				600788D529CD41B4004D837B /* dragging.hpp */,
+				602C028F29CC54C600064930 /* creator.cpp */,
+				602C029029CC54C600064930 /* creator.hpp */,
 				600788E529D3BE3F004D837B /* sideBar.cpp */,
 				600788E629D3BE3F004D837B /* sideBar.hpp */,
 			);
 			path = tools;
 			sourceTree = "<group>";
 		};
+		600788EE29D41125004D837B /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				600788F129D41125004D837B /* shape.vert */,
+				600788EF29D41125004D837B /* shape.frag */,
+				600788F029D41125004D837B /* colorPicker.vert */,
+				600788F229D41125004D837B /* colorPicker.frag */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+		600788F629D5B886004D837B /* texture */ = {
+			isa = PBXGroup;
+			children = (
+				600788F729D5B886004D837B /* triangle.png */,
+			);
+			path = texture;
+			sourceTree = "<group>";
+		};
 		60213D2629BF4754000B9B62 = {
 			isa = PBXGroup;
 			children = (
-				60213D4129C884AC000B9B62 /* shaders */,
+				600788F629D5B886004D837B /* texture */,
+				600788EE29D41125004D837B /* shaders */,
 				60213D3129BF4754000B9B62 /* cg-1 */,
 				60213D3029BF4754000B9B62 /* Products */,
 				60213D3929BF476A000B9B62 /* Frameworks */,
@@ -120,12 +149,14 @@
 				60213D3229BF4754000B9B62 /* main.cpp */,
 				600788D729CD41C3004D837B /* tools */,
 				602C027E29CB512600064930 /* geometry */,
-				602C028729CB592500064930 /* scene.cpp */,
 				600788DB29D132A2004D837B /* colorPicker.cpp */,
 				600788DC29D132A2004D837B /* colorPicker.hpp */,
+				602C028729CB592500064930 /* scene.cpp */,
 				602C028829CB592500064930 /* scene.hpp */,
 				600788E029D148CC004D837B /* shader.cpp */,
 				600788E129D148CC004D837B /* shader.hpp */,
+				600788E929D40E8C004D837B /* texture.cpp */,
+				600788EA29D40E8C004D837B /* texture.hpp */,
 				60213D3E29C87E68000B9B62 /* shaderReader.cpp */,
 				60213D3F29C87E68000B9B62 /* shaderReader.hpp */,
 				602C027A29C9A60700064930 /* common.h */,
@@ -143,23 +174,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		60213D4129C884AC000B9B62 /* shaders */ = {
-			isa = PBXGroup;
-			children = (
-				60213D4229C88612000B9B62 /* shape.vert */,
-				60213D4329C8864C000B9B62 /* shape.frag */,
-				600788DE29D1332B004D837B /* colorPicker.vert */,
-				600788DF29D13343004D837B /* colorPicker.frag */,
-			);
-			name = shaders;
-			path = ../shaders;
-			sourceTree = "<group>";
-		};
 		602C027E29CB512600064930 /* geometry */ = {
 			isa = PBXGroup;
 			children = (
-				602C027F29CB515200064930 /* geometry.cpp */,
 				602C028C29CC47B500064930 /* basic.cpp */,
+				602C027F29CB515200064930 /* geometry.cpp */,
 				602C028029CB515200064930 /* geometry.hpp */,
 			);
 			path = geometry;
@@ -227,10 +246,12 @@
 				602C028929CB592500064930 /* scene.cpp in Sources */,
 				602C028E29CC47B500064930 /* basic.cpp in Sources */,
 				60213D3329BF4754000B9B62 /* main.cpp in Sources */,
+				600788F529D53CAA004D837B /* stb_image.cpp in Sources */,
 				602C029129CC54C600064930 /* creator.cpp in Sources */,
 				602C028129CB515200064930 /* geometry.cpp in Sources */,
 				600788D629CD41B4004D837B /* dragging.cpp in Sources */,
 				60213D4029C87E68000B9B62 /* shaderReader.cpp in Sources */,
+				600788EB29D40E8C004D837B /* texture.cpp in Sources */,
 				600788DD29D132A2004D837B /* colorPicker.cpp in Sources */,
 				600788DA29CD9B3D004D837B /* tools.cpp in Sources */,
 			);
