@@ -59,7 +59,7 @@ void Circle::updateEnd(vec3 end) {
     width = abs(startPoint.x - end.x) / 2;
     height = abs(startPoint.y - end.y) / 2;
     vertices.push_back(center);
-    int split = width * M_PI / 4;
+    int split = max(20, width * M_PI / 10);
     for (int i = 0; i < split; i++) {
         float angle = 2 * M_PI / split * i;
         vertices.push_back(center + vec3(sin(angle) * width, cos(angle) * height, 0.0f));

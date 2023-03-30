@@ -22,6 +22,13 @@
 #define BTN_SIZE 20
 #define BTN_GAP 5
 
+inline int max(const int& a, const int& b) {
+    return a > b ? a : b;
+}
+inline int min(const int& a, const int& b) {
+    return a < b ? a : b;
+}
+
 using namespace glm;
 
 #endif /* common_h */
