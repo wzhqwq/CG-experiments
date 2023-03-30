@@ -125,6 +125,7 @@ int main(int argc, char * argv[]) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
     
     GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "experiment 1", NULL, NULL);
     if (!window) {
@@ -138,6 +139,7 @@ int main(int argc, char * argv[]) {
         return -1;
     }
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glEnable(GL_MULTISAMPLE);
 
     mainScene = new Scene(WIDTH, HEIGHT);
     fixedScene = new Scene(WIDTH, HEIGHT);
