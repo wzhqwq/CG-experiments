@@ -76,24 +76,31 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
         switch (key) {
             case GLFW_KEY_H:
                 switchTool(HAND);
+                sideBar->switched(0);
                 break;
             case GLFW_KEY_V:
                 switchTool(MANIPULATE);
+                sideBar->switched(1);
                 break;
             case GLFW_KEY_L:
                 switchTool(LINE);
+                sideBar->switched(2);
                 break;
             case GLFW_KEY_T:
                 switchTool(TRIANGLE);
+                sideBar->switched(3);
                 break;
             case GLFW_KEY_R:
                 switchTool(RECT);
+                sideBar->switched(4);
                 break;
             case GLFW_KEY_C:
                 switchTool(CIRCLE);
+                sideBar->switched(5);
                 break;
             case GLFW_KEY_P:
                 switchTool(PEN);
+                sideBar->switched(6);
                 break;
             case GLFW_KEY_SLASH:
                 if (mainScene->selectedItem) {

@@ -14,6 +14,7 @@
 #include "tools.hpp"
 #include "colorPicker.hpp"
 #include "scene.hpp"
+#include "texture.hpp"
 #include <vector>
 
 using namespace std;
@@ -25,6 +26,7 @@ public:
     }
     void paint();
     int mouseMove(float x, float y, int button);
+    void switched(int id);
 private:
     void create();
     int clicked(int id);
@@ -32,6 +34,7 @@ private:
     
     vector<Rect*> buttons;
     Rect *pickerBtn;
+    int selected = -1;
 };
 
 #endif /* sideBar_hpp */

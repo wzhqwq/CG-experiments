@@ -8,15 +8,11 @@
 #include "geometry.hpp"
 
 void Geometry::paint() {
+    glBindTexture(GL_TEXTURE_2D, texture);
     glBindVertexArray(VAO);
     
-    glVertexAttrib3fv(1, &currentColor[0]);
-    
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *) 0);
-    glDrawArrays(renderType, 0, (int) vertices.size());
-    glDisableVertexAttribArray(0);
+    glVertexAttrib3fv(2, &currentColor[0]);
+    glDrawArrays(renderType, 0, (int) vertices.size() / 2);
     
     glBindVertexArray(0);
 }
@@ -43,15 +39,17 @@ void Geometry::updateBuffer() {
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3 * sizeof(GLfloat), &vertices[0], GL_STREAM_DRAW);
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *) 0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *) (3 * sizeof(GLfloat)));
     glBindVertexArray(0);
 }
 
 void Geometry::applyTransformation(mat4 matrix) {
-    for (int i = 0; i < vertices.size(); i++) {
+    for (int i = 0; i < vertices.size(); i += 2) {
         vertices[i] = vec3(matrix * vec4(vertices[i], 1.0f));
     }
-    bottomLeft = vec3(matrix * vec4(bottomLeft, 1.0f));
-    topRight = vec3(matrix * vec4(topRight, 1.0f));
     updateBuffer();
 }
 
@@ -68,7 +66,6 @@ int Geometry::getZIndex() {
 int Geometry::isIn(vec3 point) {
     return 0;
 }
-void Geometry::setTexture(GLuint texture) {}
 
 GLuint Geometry::getVAO() {
     return VAO;

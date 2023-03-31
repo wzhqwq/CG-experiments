@@ -39,11 +39,6 @@ void ColorPicker::paint() {
     GLuint hsbLocation = glGetUniformLocation(programs.pickerProgram, "hsv");
     glUniform3f(hsbLocation, hue, saturate, brightness);
 
-    glBindVertexArray(pickerBox->getVAO());
-    glVertexAttrib1f(2, PICKER_SIZE);
-    glVertexAttrib2f(3, -(PICKER_SIZE / 2 + BTN_SIZE + BTN_GAP * 2), -(PICKER_SIZE / 2 + BTN_GAP));
-    glBindVertexArray(0);
-
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     pickerBox->paint();

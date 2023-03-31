@@ -96,7 +96,7 @@ void HandTool::dragMove(vec3 end) {
         mainScene->moveTo(newPos.x, newPos.y);
     }
     else if (rightButton) {
-        mainScene->zoomTo(startScale * (1.0f + delta.x / 100.0f), startPoint.x, startPoint.y);
+        mainScene->zoomTo(fmax(1.0f, startScale * (1.0f + delta.x / 100.0f)), startPoint.x, startPoint.y);
     }
 }
 

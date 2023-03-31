@@ -18,7 +18,6 @@ void SideBar::paint() {
 int SideBar::mouseMove(float x, float y, int button) {
     if (button != GLFW_PRESS) return 0;
     vec3 pos = fixedScene->rayCast(x, -y);
-    printf("%.2f %.2f\n", pos.x, pos.y);
     if (pos.x > BTN_GAP && pos.x < BTN_SIZE + BTN_GAP) {
         return clicked((int) ((pos.y - BTN_GAP) / (BTN_SIZE + BTN_GAP)));
     }
@@ -26,21 +25,24 @@ int SideBar::mouseMove(float x, float y, int button) {
 }
 
 void SideBar::create() {
-    createBtn();
-    createBtn();
-    createBtn();
-    Rect *triangleBtn = createBtn();
-//    triangleBtn->
-    createBtn();
-    createBtn();
-    createBtn();
+    createBtn()->texture = textures.hand;
+    createBtn()->texture = textures.pointer;
+    createBtn()->texture = textures.line;
+    createBtn()->texture = textures.triangle;
+    createBtn()->texture = textures.rect;
+    createBtn()->texture = textures.circle;
+    createBtn()->texture = textures.pen;
     pickerBtn = createBtn();
+    pickerBtn->texture = textures.colors;
+    
+    switched(0);
 }
 
 Rect* SideBar::createBtn() {
     Rect *result = new Rect(vec3(BTN_GAP, BTN_GAP + (BTN_SIZE + BTN_GAP) * buttons.size(), 500),
                             vec3(BTN_GAP + BTN_SIZE, (BTN_GAP + BTN_SIZE) * (buttons.size() + 1), 500));
     result->setMode(Filled);
+    result->setColor(vec3(0.6, 0.6, 0.6));
     buttons.push_back(result);
     return result;
 }
@@ -70,10 +72,18 @@ int SideBar::clicked(int id) {
             break;
         case 7:
             picker->open();
-            break;
+            return 0;
             
         default:
             return 0;
     }
+    switched(id);
     return 1;
+}
+
+void SideBar::switched(int id) {
+    if (id == selected) return;
+    if (selected != -1) buttons[selected]->setColor(vec3(0.6, 0.6, 0.6));
+    buttons[id]->setColor(vec3(0.4, 0.6, 1.0));
+    selected = id;
 }

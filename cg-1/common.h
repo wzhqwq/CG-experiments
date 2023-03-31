@@ -19,8 +19,8 @@
 #define WIDTH 1000
 #define HEIGHT 800
 #define PICKER_SIZE 300
-#define BTN_SIZE 20
-#define BTN_GAP 5
+#define BTN_SIZE 32
+#define BTN_GAP 8
 
 inline int max(const int& a, const int& b) {
     return a > b ? a : b;

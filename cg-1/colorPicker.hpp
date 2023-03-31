@@ -24,7 +24,6 @@ public:
         pickerBox = new Rect(PICKER_SIZE, PICKER_SIZE);
         pickerBox->translate(PICKER_SIZE / 2 + BTN_SIZE + BTN_GAP * 2, PICKER_SIZE / 2 + BTN_GAP);
         pickerBox->setMode(Filled);
-        
     };
     
     void open();

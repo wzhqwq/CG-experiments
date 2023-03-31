@@ -57,6 +57,13 @@
 		600788F229D41125004D837B /* colorPicker.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = colorPicker.frag; sourceTree = "<group>"; };
 		600788F429D53CAA004D837B /* stb_image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
 		600788F729D5B886004D837B /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangle.png; sourceTree = "<group>"; };
+		600788F829D68EA7004D837B /* pen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pen.png; sourceTree = "<group>"; };
+		600788F929D68EA7004D837B /* hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand.png; sourceTree = "<group>"; };
+		600788FA29D68EA7004D837B /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
+		600788FB29D68EA8004D837B /* rect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rect.png; sourceTree = "<group>"; };
+		600788FD29D68EA8004D837B /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
+		600788FE29D690A7004D837B /* colors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = colors.png; sourceTree = "<group>"; };
+		600788FF29D690A7004D837B /* cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor.png; sourceTree = "<group>"; };
 		60213D2F29BF4754000B9B62 /* cg-1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cg-1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60213D3229BF4754000B9B62 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		60213D3A29BF476A000B9B62 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -119,6 +126,13 @@
 		600788F629D5B886004D837B /* texture */ = {
 			isa = PBXGroup;
 			children = (
+				600788FD29D68EA8004D837B /* circle.png */,
+				600788F929D68EA7004D837B /* hand.png */,
+				600788FA29D68EA7004D837B /* line.png */,
+				600788F829D68EA7004D837B /* pen.png */,
+				600788FB29D68EA8004D837B /* rect.png */,
+				600788FE29D690A7004D837B /* colors.png */,
+				600788FF29D690A7004D837B /* cursor.png */,
 				600788F729D5B886004D837B /* triangle.png */,
 			);
 			path = texture;
