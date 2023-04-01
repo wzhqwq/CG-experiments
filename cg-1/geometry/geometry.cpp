@@ -63,9 +63,21 @@ void Geometry::setZIndex(int index) {
 int Geometry::getZIndex() {
     return currentZIndex;
 }
+void Geometry::scale(float scaleX, float scaleY, float x, float y) {
+    applyTransformation(glm::translate(
+                                       glm::scale(
+                                                  glm::translate(mat4(1.0), vec3(x, y, 0.0)),
+                                                  vec3(scaleX, scaleY, 1.0)
+                                                  ),
+                                       vec3(-x, -y, 0.0)
+                                       ));
+    onScale(scaleX, scaleY);
+}
 int Geometry::isIn(vec3 point) {
     return 0;
 }
+void Geometry::onScale(float scaleX, float scaleY) {}
+
 
 GLuint Geometry::getVAO() {
     return VAO;

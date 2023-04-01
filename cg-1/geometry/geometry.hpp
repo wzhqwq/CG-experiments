@@ -35,9 +35,11 @@ public:
     void setColor(vec3 color);
     virtual void setMode(DrawMode mode);
     virtual int isIn(vec3 point);
+    virtual void onScale(float scaleX, float scaleY);
 
     void applyTransformation(mat4 matrix);
     void translate(float x, float y);
+    void scale(float scaleX, float scaleY, float x, float y);
     void setZIndex(int index);
     int getZIndex();
 
@@ -115,6 +117,7 @@ public:
     void setMode(DrawMode mode);
     void updateEnd(vec3 end);
     int isIn(vec3 point);
+    void onScale(float scaleX, float scaleY);
 private:
     float width, height;
 };

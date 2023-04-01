@@ -50,6 +50,10 @@ private:
 };
 
 class ManipulateTool : public DragTool {
+public:
+    ManipulateTool() {
+        realPos = 1;
+    };
 protected:
     void clicked(vec3 p);
     void dragStart(vec3 start, vec3 end);
@@ -57,6 +61,7 @@ protected:
     void dragStop(vec3 end);
 private:
     int dragging = 0;
+    vec3 startPoint, realStartPoint;
 };
 
 #endif /* dragging_hpp */

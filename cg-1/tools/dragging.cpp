@@ -84,7 +84,7 @@ void DragTool::setKeyMods(int mods) {
 
 void HandTool::dragStart(vec3 start, vec3 end) {
     realStartPoint = start;
-    startPoint = mainScene->rayCast(start.x, start.y);
+    startPoint = mainScene->rayCast(start.x, -start.y);
     startPos = mainScene->getPos();
     startScale = mainScene->getScale();
     dragMove(end);
@@ -101,6 +101,7 @@ void HandTool::dragMove(vec3 end) {
 }
 
 void ManipulateTool::clicked(vec3 p) {
+    p = mainScene->rayCast(p.x, -p.y);
     int maxZIndex = -1;
     for (auto geo : mainScene->shapes) {
         if (geo->getZIndex() > maxZIndex && geo->isIn(p)) {
@@ -113,14 +114,23 @@ void ManipulateTool::clicked(vec3 p) {
 void ManipulateTool::dragStart(vec3 start, vec3 end) {
     clicked(start);
     if (mainScene->selectedItem) {
+        realStartPoint = start;
+        startPoint = mainScene->rayCast(start.x, -start.y);
+//        printf("%.2f %.2f\n", start.x, start.y);
         dragging = 1;
         dragMove(end);
     }
 }
 void ManipulateTool::dragMove(vec3 end) {
     if (dragging) {
-        vec3 delta = end - lastPoint;
-        mainScene->selectedItem->translate(delta.x, delta.y);
+        if (leftButton) {
+            vec3 delta = end - lastPoint;
+            mainScene->selectedItem->translate(delta.x, delta.y);
+        }
+        else if (rightButton) {
+            float scale = (1.0f + (end - realStartPoint).x / 100.0f) / (1.0f + (lastPoint - realStartPoint).x / 100.0f);
+            mainScene->selectedItem->scale(scale, scale, startPoint.x, startPoint.y);
+        }
     }
 }
 void ManipulateTool::dragStop(vec3 end) {

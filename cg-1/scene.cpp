@@ -18,12 +18,14 @@ void Scene::updateVPMatrix() {
 }
 
 void Scene::zoomTo(float scale, float centerX, float centerY) {
-    currentScale = scale;
-    float _w = w / currentScale, _h = h / currentScale;
+    float _w = w / scale, _h = h / scale;
     projection = ortho(-(_w / 2.0f), _w / 2.0f,
                        -(_h / 2.0f), _h / 2.0f,
                        0.0f, 1000.0f
                        );
+    currentPos = currentPos + vec3((vec2(centerX, centerY) - vec2(currentPos)) * (scale / currentScale - 1), 0.0);
+    view = lookAt(currentPos, currentPos - vec3(0, 0, 100), vec3(0, 1, 0));
+    currentScale = scale;
     changed = 1;
 }
 

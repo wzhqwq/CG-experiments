@@ -29,7 +29,14 @@ void Triangle::updateEnd(vec3 end) {
     updateBuffer();
 }
 int Triangle::isIn(vec3 point) {
-    return 0;
+    point.z = vertices[0].z;
+    int flipX = vertices[2].x > vertices[4].x, flipY = vertices[2].y > vertices[0].y;
+    vec3 a = vertices[0];
+    vec3 b = flipX ^ flipY ? vertices[4] : vertices[2];
+    vec3 c = flipX ^ flipY ? vertices[2] : vertices[4];
+    return (cross(b - a, point - a).z > 0 &&
+            cross(c - b, point - b).z > 0 &&
+            cross(a - c, point - c).z > 0);
 }
 
 void Rect::updateEnd(vec3 end) {
@@ -102,4 +109,8 @@ void Circle::setMode(DrawMode mode) {
 int Circle::isIn(vec3 point) {
     point -= renderType == GL_TRIANGLE_FAN ? vertices[0] : vertices[0] - vec3(0.0, height, 0.0);
     return length(point * vec3(1.0f / width, 1.0f / height, 1.0f)) < 1.0f;
+}
+void Circle::onScale(float scaleX, float scaleY) {
+    width *= scaleX;
+    height *= scaleY;
 }
