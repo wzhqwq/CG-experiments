@@ -57,7 +57,7 @@ int ColorPicker::mouseMove(float x, float y, int button) {
     inPos.y = -(inPos.y - (PICKER_SIZE / 2 + BTN_GAP)) / PICKER_SIZE;
         
     if (status == Idle) {
-        float d = length(inPos);        
+        float d = length(inPos);
         if (abs(inPos.x) < 0.3 && abs(inPos.y) < 0.3) {
             status = InRect;
         }
@@ -69,23 +69,36 @@ int ColorPicker::mouseMove(float x, float y, int button) {
             return 1;
         }
     }
+    
+    vec3 color;
     if (status == InRing) {
         hue = atan2(inPos.x, inPos.y) / M_PI / 2;
         if (hue < 0) hue += 1.0;
-        mainScene->currentColor = hsv_to_rgb(hue, saturate, brightness);
+        color = hsv_to_rgb(hue, saturate, brightness);
     }
     if (status == InRect) {
         saturate = fmax(0.0f, fmin(1.0f, inPos.x / 0.6 + 0.5));
         brightness = fmax(0.0f, fmin(1.0f, inPos.y / 0.6 + 0.5));
-        mainScene->currentColor = hsv_to_rgb(hue, saturate, brightness);
+        color = hsv_to_rgb(hue, saturate, brightness);
+    }
+    
+    if (mainScene->selectedItem) {
+        mainScene->selectedItem->currentColor = color;
+    }
+    else {
+        mainScene->currentColor = color;
     }
     return 1;
 }
 
 void ColorPicker::open() {
     opened = 1;
+    if (mainScene->selectedItem) {
+        lastColor = mainScene->selectedItem->currentColor;
+    }
 }
 
 void ColorPicker::close() {
     opened = 0;
+    if (mainScene->selectedItem) pushOp(new ColoringOp(lastColor, mainScene->selectedItem));
 }

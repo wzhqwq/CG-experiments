@@ -17,10 +17,6 @@ void Geometry::paint() {
     glBindVertexArray(0);
 }
 
-void Geometry::setColor(vec3 color) {
-    currentColor = color;
-}
-
 void Geometry::setMode(DrawMode mode) {
     switch (mode) {
         case Filled:

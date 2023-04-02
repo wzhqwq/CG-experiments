@@ -32,7 +32,6 @@ public:
     }
     
     void paint();
-    void setColor(vec3 color);
     virtual void setMode(DrawMode mode);
     virtual int isIn(vec3 point);
     virtual void onScale(float scaleX, float scaleY);
@@ -47,6 +46,7 @@ public:
     GLuint getVAO();
     
     GLuint texture = 0;
+    vec3 currentColor;
 protected:
     void updateBuffer();
     
@@ -55,7 +55,6 @@ protected:
     mat4 transformation = mat4(1.0f);
     vector<vec3> vertices;
     GLenum renderType = GL_TRIANGLES;
-    vec3 currentColor;
     int currentZIndex = 0;
 };
 

@@ -9,7 +9,7 @@
 
 void SideBar::paint() {
     glUseProgram(programs.fixedProgram);
-    pickerBtn->setColor(mainScene->currentColor);
+    pickerBtn->currentColor = mainScene->currentColor;
     for (auto btn : buttons) {
         btn->paint();
     }
@@ -42,7 +42,7 @@ Rect* SideBar::createBtn() {
     Rect *result = new Rect(vec3(BTN_GAP, BTN_GAP + (BTN_SIZE + BTN_GAP) * buttons.size(), 500),
                             vec3(BTN_GAP + BTN_SIZE, (BTN_GAP + BTN_SIZE) * (buttons.size() + 1), 500));
     result->setMode(Filled);
-    result->setColor(vec3(0.6, 0.6, 0.6));
+    result->currentColor = vec3(0.6, 0.6, 0.6);
     buttons.push_back(result);
     return result;
 }
@@ -83,7 +83,7 @@ int SideBar::clicked(int id) {
 
 void SideBar::switched(int id) {
     if (id == selected) return;
-    if (selected != -1) buttons[selected]->setColor(vec3(0.6, 0.6, 0.6));
-    buttons[id]->setColor(vec3(0.4, 0.6, 1.0));
+    if (selected != -1) buttons[selected]->currentColor = vec3(0.6, 0.6, 0.6);
+    buttons[id]->currentColor = vec3(0.4, 0.6, 1.0);
     selected = id;
 }

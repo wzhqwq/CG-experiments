@@ -118,7 +118,10 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
                     mainScene->currentDrawMode = Filled;
                 }
                 break;
-            default:
+            case GLFW_KEY_Z:
+                if (mods & GLFW_MOD_SUPER) {
+                    popOp();
+                }
                 break;
         }
         if (!mods) {

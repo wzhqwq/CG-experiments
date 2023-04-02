@@ -114,9 +114,11 @@ void ManipulateTool::dragStart(vec3 start, vec3 end) {
     clicked(start);
     if (mainScene->selectedItem) {
         startPoint = start;
-        dragging = 1;
+        startCenter = mainScene->selectedItem->getCenter();
         currentTranslation = vec2(0.0);
         currentScaling = vec2(1.0);
+        type = leftButton ? 1 : 2;
+        dragging = 1;
         dragMove(end);
     }
 }
@@ -143,7 +145,7 @@ void ManipulateTool::doTransformation(vec2 delta) {
         currentTranslation = delta;
     }
     else if (rightButton) {
-        vec3 center = centerFixed ? mainScene->selectedItem->getCenter() : startPoint;
+        vec2 center = vec2(centerFixed ? startCenter : startPoint);
         vec2 s;
         if (fitAxis) {
             s = vec2(1.0);
@@ -163,5 +165,14 @@ void ManipulateTool::doTransformation(vec2 delta) {
     }
 }
 void ManipulateTool::dragStop(vec3 end) {
+    if (!dragging) return;
     dragging = 0;
+    switch (type) {
+        case 1:
+            pushOp(new TranslationOp(currentTranslation, mainScene->selectedItem));
+            break;
+        case 2:
+            pushOp(new ScalingOp(currentScaling, vec2(centerFixed ? startCenter : startPoint), mainScene->selectedItem));
+            break;
+    }
 }

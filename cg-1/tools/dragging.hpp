@@ -10,6 +10,7 @@
 
 #include "common.h"
 #include "scene.hpp"
+#include "history.hpp"
 
 enum DragState {
     Standby,
@@ -59,8 +60,9 @@ protected:
     void dragStop(vec3 end);
     void doTransformation(vec2 delta);
 private:
-    int dragging = 0, fitAxis = 0, centerFixed = 0;
-    vec3 startPoint;
+    int type = 0, fitAxis = 0, centerFixed = 0;
+    int dragging = 0;
+    vec3 startPoint, startCenter;
     vec2 currentTranslation, currentScaling;
 };
 

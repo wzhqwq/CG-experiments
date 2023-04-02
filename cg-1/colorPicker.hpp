@@ -12,6 +12,7 @@
 #include "scene.hpp"
 #include "geometry.hpp"
 #include "shader.hpp"
+#include "history.hpp"
 #include <cmath>
 
 enum PickStatus {
@@ -35,6 +36,7 @@ private:
     Rect *pickerBox;
     int opened = 0;
     PickStatus status = Idle;
+    vec3 lastColor;
 };
 
 extern ColorPicker *picker;
