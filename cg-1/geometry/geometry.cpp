@@ -73,11 +73,9 @@ void Geometry::scale(float scaleX, float scaleY, float x, float y) {
                                        ));
     onScale(scaleX, scaleY);
 }
-int Geometry::isIn(vec3 point) {
-    return 0;
-}
+int Geometry::isIn(vec3 point) { return 0; }
 void Geometry::onScale(float scaleX, float scaleY) {}
-
+vec3 Geometry::getCenter() { return vec3(0.0); }
 
 GLuint Geometry::getVAO() {
     return VAO;

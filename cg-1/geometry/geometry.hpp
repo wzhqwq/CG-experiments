@@ -36,6 +36,7 @@ public:
     virtual void setMode(DrawMode mode);
     virtual int isIn(vec3 point);
     virtual void onScale(float scaleX, float scaleY);
+    virtual vec3 getCenter();
 
     void applyTransformation(mat4 matrix);
     void translate(float x, float y);
@@ -77,6 +78,7 @@ public:
     void setMode(DrawMode mode);
     void updateEnd(vec3 end);
     int isIn(vec3 point);
+    vec3 getCenter();
 };
 
 class Triangle : public RubberBandGeometry {
@@ -89,6 +91,7 @@ public:
     
     void updateEnd(vec3 end);
     int isIn(vec3 point);
+    vec3 getCenter();
 };
 
 class Rect : public RubberBandGeometry {
@@ -104,6 +107,7 @@ public:
     void setMode(DrawMode mode);
     void updateEnd(vec3 end);
     int isIn(vec3 point);
+    vec3 getCenter();
 };
 
 class Circle : public RubberBandGeometry {
@@ -118,6 +122,7 @@ public:
     void updateEnd(vec3 end);
     int isIn(vec3 point);
     void onScale(float scaleX, float scaleY);
+    vec3 getCenter();
 private:
     float width, height;
 };

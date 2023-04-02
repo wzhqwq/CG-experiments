@@ -101,7 +101,6 @@ void HandTool::dragMove(vec3 end) {
 }
 
 void ManipulateTool::clicked(vec3 p) {
-    p = mainScene->rayCast(p.x, -p.y);
     int maxZIndex = -1;
     for (auto geo : mainScene->shapes) {
         if (geo->getZIndex() > maxZIndex && geo->isIn(p)) {
@@ -114,23 +113,53 @@ void ManipulateTool::clicked(vec3 p) {
 void ManipulateTool::dragStart(vec3 start, vec3 end) {
     clicked(start);
     if (mainScene->selectedItem) {
-        realStartPoint = start;
-        startPoint = mainScene->rayCast(start.x, -start.y);
-//        printf("%.2f %.2f\n", start.x, start.y);
+        startPoint = start;
         dragging = 1;
+        currentTranslation = vec2(0.0);
+        currentScaling = vec2(1.0);
         dragMove(end);
     }
 }
 void ManipulateTool::dragMove(vec3 end) {
-    if (dragging) {
-        if (leftButton) {
-            vec3 delta = end - lastPoint;
-            mainScene->selectedItem->translate(delta.x, delta.y);
+    if (dragging) doTransformation(end - startPoint);
+}
+void ManipulateTool::setKeyMods(int mods) {
+    fitAxis = mods & GLFW_MOD_SHIFT;
+    centerFixed = mods & GLFW_MOD_ALT;
+    if (dragging) doTransformation(lastPoint - startPoint);
+}
+void ManipulateTool::doTransformation(vec2 delta) {
+    if (leftButton) {
+        if (fitAxis) {
+            if (fabs(delta.x) > fabs(delta.y)) {
+                delta.y = 0;
+            }
+            else {
+                delta.x = 0;
+            }
         }
-        else if (rightButton) {
-            float scale = (1.0f + (end - realStartPoint).x / 100.0f) / (1.0f + (lastPoint - realStartPoint).x / 100.0f);
-            mainScene->selectedItem->scale(scale, scale, startPoint.x, startPoint.y);
+        vec2 t = delta - currentTranslation;
+        mainScene->selectedItem->translate(t.x, t.y);
+        currentTranslation = delta;
+    }
+    else if (rightButton) {
+        vec3 center = centerFixed ? mainScene->selectedItem->getCenter() : startPoint;
+        vec2 s;
+        if (fitAxis) {
+            s = vec2(1.0);
+            if (fabs(delta.x) > fabs(delta.y)) {
+                s.x = 1.0f + delta.x / 100;
+            }
+            else {
+                s.y = 1.0f + delta.y / 100;
+            }
         }
+        else {
+            s = vec2(1.0f + delta.x / 100);
+        }
+        vec2 s2 = s / currentScaling;
+        mainScene->selectedItem->scale(s2.x, s2.y, center.x, center.y);
+        currentScaling = s;
     }
 }
 void ManipulateTool::dragStop(vec3 end) {

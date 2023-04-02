@@ -51,17 +51,17 @@ private:
 
 class ManipulateTool : public DragTool {
 public:
-    ManipulateTool() {
-        realPos = 1;
-    };
+    void setKeyMods(int mods);
 protected:
     void clicked(vec3 p);
     void dragStart(vec3 start, vec3 end);
     void dragMove(vec3 end);
     void dragStop(vec3 end);
+    void doTransformation(vec2 delta);
 private:
-    int dragging = 0;
-    vec3 startPoint, realStartPoint;
+    int dragging = 0, fitAxis = 0, centerFixed = 0;
+    vec3 startPoint;
+    vec2 currentTranslation, currentScaling;
 };
 
 #endif /* dragging_hpp */

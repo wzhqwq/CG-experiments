@@ -18,6 +18,9 @@ void Line::setMode(DrawMode mode) {}
 int Line::isIn(vec3 point) {
     return length(vertices[0] - point) + length(vertices[1] - point) - length(vertices[0] - vertices[1]) < 3.0f;
 }
+vec3 Line::getCenter() {
+    return (vertices[0] + vertices[2]) * 0.5f;
+}
 
 void Triangle::updateEnd(vec3 end) {
     vertices[0] = vec3((startPoint.x + end.x) / 2, startPoint.y, 0);
@@ -37,6 +40,9 @@ int Triangle::isIn(vec3 point) {
     return (cross(b - a, point - a).z > 0 &&
             cross(c - b, point - b).z > 0 &&
             cross(a - c, point - c).z > 0);
+}
+vec3 Triangle::getCenter() {
+    return (vertices[0] + (vertices[2] + vertices[4]) * 0.5f) * 0.5f;
 }
 
 void Rect::updateEnd(vec3 end) {
@@ -68,6 +74,9 @@ void Rect::setMode(DrawMode mode) {
 int Rect::isIn(vec3 point) {
     vec3 v1 = min(vertices[0], vertices[4]), v2 = max(vertices[0], vertices[4]);
     return v1.x < point.x && point.x < v2.x && v1.y < point.y && point.y < v2.y;
+}
+vec3 Rect::getCenter() {
+    return (vertices[0] + vertices[4]) * 0.5f;
 }
 
 void Circle::updateEnd(vec3 end) {
@@ -107,10 +116,13 @@ void Circle::setMode(DrawMode mode) {
     updateBuffer();
 }
 int Circle::isIn(vec3 point) {
-    point -= renderType == GL_TRIANGLE_FAN ? vertices[0] : vertices[0] - vec3(0.0, height, 0.0);
+    point -= getCenter();
     return length(point * vec3(1.0f / width, 1.0f / height, 1.0f)) < 1.0f;
 }
 void Circle::onScale(float scaleX, float scaleY) {
     width *= scaleX;
     height *= scaleY;
+}
+vec3 Circle::getCenter() {
+    return renderType == GL_TRIANGLE_FAN ? vertices[0] : vertices[0] - vec3(0.0, height, 0.0);
 }
