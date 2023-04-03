@@ -22,10 +22,7 @@ public:
 
 class CreationOp : public Operation {
 public:
-    CreationOp(int _index) : index(_index) {};
     void undo();
-private:
-    int index;
 };
 
 class DeletionOp : public Operation {

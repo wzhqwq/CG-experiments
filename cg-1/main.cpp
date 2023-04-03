@@ -123,6 +123,17 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
                     popOp();
                 }
                 break;
+            case GLFW_KEY_BACKSPACE:
+                if (mainScene->selectedItem) {
+                    for (auto i = mainScene->shapes.begin(); i < mainScene->shapes.end(); i++) {
+                        if (*i == mainScene->selectedItem) {
+                            pushOp(new DeletionOp((int) (i - mainScene->shapes.begin()), *i));
+                            mainScene->shapes.erase(i);
+                            mainScene->selectedItem = NULL;
+                            break;
+                        }
+                    }
+                }
         }
         if (!mods) {
             currentTool->setKeyMods(0);

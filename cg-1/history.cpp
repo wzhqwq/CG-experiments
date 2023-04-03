@@ -12,7 +12,7 @@ stack<Operation *> opStack;
 void Operation::undo() {};
 
 void CreationOp::undo() {
-    mainScene->shapes.erase(mainScene->shapes.begin() + index);
+    mainScene->shapes.pop_back();
 }
 
 void DeletionOp::undo() {

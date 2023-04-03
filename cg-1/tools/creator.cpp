@@ -8,7 +8,7 @@
 #include "creator.hpp"
 
 void RubberBandCreator::dragStop(vec3 end) {
-    pushOp(new CreationOp((int) mainScene->shapes.size() - 1));
+    pushOp(new CreationOp());
     result = NULL;
 }
 void RubberBandCreator::dragMove(vec3 end) {
