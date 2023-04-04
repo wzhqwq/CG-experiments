@@ -12,7 +12,7 @@
 #include "common.h"
 
 struct Textures {
-    GLuint triangle, rect, circle, hand, line, pointer, pen, colors;
+    GLuint triangle, rect, circle, hand, line, pointer, pen, colors, selection;
 };
 
 GLuint loadTexture(const char *textureUrl, const char *fileName);

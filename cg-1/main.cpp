@@ -27,12 +27,16 @@ SideBar *sideBar;
 void render() {
     glClear(GL_COLOR_BUFFER_BIT);
     
-    glUseProgram(programs.shapeProgram);
     if (mainScene->isChanged()) {
+        glUseProgram(programs.shapeProgram);
         glUniformMatrix4fv(shapeMVPLocation, 1, GL_FALSE, &mainScene->getVPMatrix()[0][0]);
     }
+    glUseProgram(programs.shapeProgram);
     for (auto geo : mainScene->shapes) {
         geo->paint();
+    }
+    if (mainScene->selectionRect && mainScene->selectedItem) {
+        mainScene->selectionRect->drawSelf();
     }
     
     picker->paint();

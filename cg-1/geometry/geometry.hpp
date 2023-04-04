@@ -17,6 +17,9 @@ using namespace std;
 enum DrawMode {
     Filled, Outlined
 };
+enum RenderMode {
+    SingleColor, TexMask, TexPure
+};
 
 class Geometry {
 public:
@@ -36,6 +39,8 @@ public:
     virtual int isIn(vec3 point);
     virtual void onScale(float scaleX, float scaleY);
     virtual vec3 getCenter();
+    virtual vec3 getBottomLeft();
+    virtual vec3 getTopRight();
 
     void applyTransformation(mat4 matrix);
     void translate(float x, float y);
@@ -47,6 +52,7 @@ public:
     
     GLuint texture = 0;
     vec3 currentColor;
+    RenderMode renderMode = SingleColor;
 protected:
     void updateBuffer();
     
@@ -78,6 +84,8 @@ public:
     void updateEnd(vec3 end);
     int isIn(vec3 point);
     vec3 getCenter();
+    vec3 getBottomLeft();
+    vec3 getTopRight();
 };
 
 class Triangle : public RubberBandGeometry {
@@ -91,6 +99,8 @@ public:
     void updateEnd(vec3 end);
     int isIn(vec3 point);
     vec3 getCenter();
+    vec3 getBottomLeft();
+    vec3 getTopRight();
 };
 
 class Rect : public RubberBandGeometry {
@@ -107,6 +117,8 @@ public:
     void updateEnd(vec3 end);
     int isIn(vec3 point);
     vec3 getCenter();
+    vec3 getBottomLeft();
+    vec3 getTopRight();
 };
 
 class Circle : public RubberBandGeometry {
@@ -122,6 +134,8 @@ public:
     int isIn(vec3 point);
     void onScale(float scaleX, float scaleY);
     vec3 getCenter();
+    vec3 getBottomLeft();
+    vec3 getTopRight();
 private:
     float width, height;
 };

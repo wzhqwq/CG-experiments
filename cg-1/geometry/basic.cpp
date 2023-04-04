@@ -18,9 +18,9 @@ void Line::setMode(DrawMode mode) {}
 int Line::isIn(vec3 point) {
     return length(vertices[0] - point) + length(vertices[1] - point) - length(vertices[0] - vertices[1]) < 3.0f;
 }
-vec3 Line::getCenter() {
-    return (vertices[0] + vertices[2]) * 0.5f;
-}
+vec3 Line::getCenter() { return (vertices[0] + vertices[2]) * 0.5f; }
+vec3 Line::getBottomLeft() { return min(vertices[0], vertices[2]); }
+vec3 Line::getTopRight() { return max(vertices[0], vertices[2]); }
 
 void Triangle::updateEnd(vec3 end) {
     vertices[0] = vec3((startPoint.x + end.x) / 2, startPoint.y, 0);
@@ -41,9 +41,9 @@ int Triangle::isIn(vec3 point) {
             cross(c - b, point - b).z > 0 &&
             cross(a - c, point - c).z > 0);
 }
-vec3 Triangle::getCenter() {
-    return (vertices[0] + (vertices[2] + vertices[4]) * 0.5f) * 0.5f;
-}
+vec3 Triangle::getCenter() { return (vertices[0] + (vertices[2] + vertices[4]) * 0.5f) * 0.5f; }
+vec3 Triangle::getBottomLeft() { return vec3(fmin(vertices[2].x, vertices[4].x), fmin(vertices[0].y, vertices[2].y), vertices[0].z); }
+vec3 Triangle::getTopRight() { return vec3(fmax(vertices[2].x, vertices[4].x), fmax(vertices[0].y, vertices[2].y), vertices[0].z); }
 
 void Rect::updateEnd(vec3 end) {
     vertices[0] = startPoint;
@@ -75,9 +75,9 @@ int Rect::isIn(vec3 point) {
     vec3 v1 = min(vertices[0], vertices[4]), v2 = max(vertices[0], vertices[4]);
     return v1.x < point.x && point.x < v2.x && v1.y < point.y && point.y < v2.y;
 }
-vec3 Rect::getCenter() {
-    return (vertices[0] + vertices[4]) * 0.5f;
-}
+vec3 Rect::getCenter() { return (vertices[0] + vertices[4]) * 0.5f; }
+vec3 Rect::getBottomLeft() { return min(vertices[0], vertices[4]); }
+vec3 Rect::getTopRight() { return max(vertices[0], vertices[4]); }
 
 void Circle::updateEnd(vec3 end) {
     vertices.clear();
@@ -126,3 +126,5 @@ void Circle::onScale(float scaleX, float scaleY) {
 vec3 Circle::getCenter() {
     return renderType == GL_TRIANGLE_FAN ? vertices[0] : vertices[0] - vec3(0.0, height, 0.0);
 }
+vec3 Circle::getBottomLeft() { return getCenter() - vec3(width, height, 0.0); }
+vec3 Circle::getTopRight() { return getCenter() + vec3(width, height, 0.0); }

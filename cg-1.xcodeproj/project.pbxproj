@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		60030EC129D9BB1C00C1031D /* history.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60030EBF29D9BB1C00C1031D /* history.cpp */; };
+		60030EC429DA965000C1031D /* selection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60030EC229DA965000C1031D /* selection.cpp */; };
 		600788D629CD41B4004D837B /* dragging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 600788D429CD41B4004D837B /* dragging.cpp */; };
 		600788DA29CD9B3D004D837B /* tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 600788D829CD9B3D004D837B /* tools.cpp */; };
 		600788DD29D132A2004D837B /* colorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 600788DB29D132A2004D837B /* colorPicker.cpp */; };
@@ -41,6 +42,8 @@
 /* Begin PBXFileReference section */
 		60030EBF29D9BB1C00C1031D /* history.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = history.cpp; sourceTree = "<group>"; };
 		60030EC029D9BB1C00C1031D /* history.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = history.hpp; sourceTree = "<group>"; };
+		60030EC229DA965000C1031D /* selection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = selection.cpp; sourceTree = "<group>"; };
+		60030EC329DA965000C1031D /* selection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = selection.hpp; sourceTree = "<group>"; };
 		600788D429CD41B4004D837B /* dragging.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dragging.cpp; sourceTree = "<group>"; };
 		600788D529CD41B4004D837B /* dragging.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dragging.hpp; sourceTree = "<group>"; };
 		600788D829CD9B3D004D837B /* tools.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tools.cpp; sourceTree = "<group>"; };
@@ -169,9 +172,9 @@
 				600788DB29D132A2004D837B /* colorPicker.cpp */,
 				600788DC29D132A2004D837B /* colorPicker.hpp */,
 				602C028729CB592500064930 /* scene.cpp */,
+				602C028829CB592500064930 /* scene.hpp */,
 				60030EBF29D9BB1C00C1031D /* history.cpp */,
 				60030EC029D9BB1C00C1031D /* history.hpp */,
-				602C028829CB592500064930 /* scene.hpp */,
 				600788E029D148CC004D837B /* shader.cpp */,
 				600788E129D148CC004D837B /* shader.hpp */,
 				600788E929D40E8C004D837B /* texture.cpp */,
@@ -199,6 +202,8 @@
 				602C028C29CC47B500064930 /* basic.cpp */,
 				602C027F29CB515200064930 /* geometry.cpp */,
 				602C028029CB515200064930 /* geometry.hpp */,
+				60030EC229DA965000C1031D /* selection.cpp */,
+				60030EC329DA965000C1031D /* selection.hpp */,
 			);
 			path = geometry;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 				602C028929CB592500064930 /* scene.cpp in Sources */,
 				602C028E29CC47B500064930 /* basic.cpp in Sources */,
 				60213D3329BF4754000B9B62 /* main.cpp in Sources */,
+				60030EC429DA965000C1031D /* selection.cpp in Sources */,
 				600788F529D53CAA004D837B /* stb_image.cpp in Sources */,
 				602C029129CC54C600064930 /* creator.cpp in Sources */,
 				602C028129CB515200064930 /* geometry.cpp in Sources */,

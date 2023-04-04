@@ -10,6 +10,7 @@
 
 #include "common.h"
 #include "geometry.hpp"
+#include "selection.hpp"
 
 #include <vector>
 
@@ -39,6 +40,7 @@ public:
     vec3 currentColor = vec3(1.0f, 0.0f, 0.0f);
     DrawMode currentDrawMode = Filled;
     Geometry *selectedItem = NULL;
+    SelectionRect *selectionRect = NULL;
 private:
     void updateVPMatrix();
     

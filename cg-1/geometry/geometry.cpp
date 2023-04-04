@@ -12,6 +12,7 @@ void Geometry::paint() {
     glBindVertexArray(VAO);
     
     glVertexAttrib3fv(2, &currentColor[0]);
+    glVertexAttribI1i(3, renderMode);
     glDrawArrays(renderType, 0, (int) vertices.size() / 2);
     
     glBindVertexArray(0);
@@ -72,6 +73,8 @@ void Geometry::scale(float scaleX, float scaleY, float x, float y) {
 int Geometry::isIn(vec3 point) { return 0; }
 void Geometry::onScale(float scaleX, float scaleY) {}
 vec3 Geometry::getCenter() { return vec3(0.0); }
+vec3 Geometry::getBottomLeft() { return vec3(0.0); }
+vec3 Geometry::getTopRight() { return vec3(0.0); }
 
 GLuint Geometry::getVAO() {
     return VAO;

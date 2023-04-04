@@ -41,4 +41,5 @@ void initTexture(const char *textureUrl) {
     textures.pointer = loadTexture(textureUrl, "cursor.png");
     textures.pen = loadTexture(textureUrl, "pen.png");
     textures.colors = loadTexture(textureUrl, "colors.png");
+    textures.selection = loadTexture(textureUrl, "selection.png");
 }

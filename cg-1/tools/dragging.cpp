@@ -102,13 +102,25 @@ void HandTool::dragMove(vec3 end) {
 
 void ManipulateTool::clicked(vec3 p) {
     int maxZIndex = -1;
+    Geometry *selected = NULL;
     for (auto geo : mainScene->shapes) {
         if (geo->getZIndex() > maxZIndex && geo->isIn(p)) {
-            mainScene->selectedItem = geo;
+            selected = geo;
             maxZIndex = geo->getZIndex();
         }
     }
-    if (maxZIndex == -1) mainScene->selectedItem = NULL;
+    if (maxZIndex == -1) {
+        mainScene->selectedItem = NULL;
+    }
+    else {
+        mainScene->selectedItem = selected;
+        if (!mainScene->selectionRect) {
+            mainScene->selectionRect = new SelectionRect(selected->getBottomLeft(), selected->getTopRight());
+        }
+        else {
+            mainScene->selectionRect->updateBox(selected->getBottomLeft(), selected->getTopRight());
+        }
+    }
 }
 void ManipulateTool::dragStart(vec3 start, vec3 end) {
     clicked(start);
@@ -163,6 +175,7 @@ void ManipulateTool::doTransformation(vec2 delta) {
         mainScene->selectedItem->scale(s2.x, s2.y, center.x, center.y);
         currentScaling = s;
     }
+    mainScene->selectionRect->updateBox(mainScene->selectedItem->getBottomLeft(), mainScene->selectedItem->getTopRight());
 }
 void ManipulateTool::dragStop(vec3 end) {
     if (!dragging) return;

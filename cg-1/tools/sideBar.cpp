@@ -43,6 +43,7 @@ Rect* SideBar::createBtn() {
                             vec3(BTN_GAP + BTN_SIZE, (BTN_GAP + BTN_SIZE) * (buttons.size() + 1), 500));
     result->setMode(Filled);
     result->currentColor = vec3(0.6, 0.6, 0.6);
+    result->renderMode = TexMask;
     buttons.push_back(result);
     return result;
 }

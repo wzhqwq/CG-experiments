@@ -27,6 +27,9 @@ void Scene::zoomTo(float scale, float centerX, float centerY) {
     view = lookAt(currentPos, currentPos - vec3(0, 0, 100), vec3(0, 1, 0));
     currentScale = scale;
     changed = 1;
+    if (selectionRect) {
+        selectionRect->updateScale(currentScale);
+    }
 }
 
 void Scene::moveTo(float posX, float posY) {
