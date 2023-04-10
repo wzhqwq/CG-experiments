@@ -43,18 +43,21 @@ void ColorPicker::paint() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     pickerBox->paint();
     glDisable(GL_BLEND);
+    
+    glUseProgram(programs.fixedProgram);
+    for (auto btn : colorBlocks) btn->paint();
 }
 
-int ColorPicker::mouseMove(float x, float y, int button) {
+int ColorPicker::mouseMove(float x, float y, int left, int right) {
     if (!opened) return 0;
-    if (button == GLFW_RELEASE) {
+    if ((left | right) == GLFW_RELEASE) {
         if (status != Idle) status = Idle;
         return 1;
     }
     
-    vec2 inPos = vec2(fixedScene->rayCast(x, -y));
-    inPos.x = (inPos.x - (PICKER_SIZE / 2 + BTN_SIZE + BTN_GAP * 2)) / PICKER_SIZE;
-    inPos.y = -(inPos.y - (PICKER_SIZE / 2 + BTN_GAP)) / PICKER_SIZE;
+    vec3 castPos = fixedScene->rayCast(x, -y) - vec3(selfX, selfY, 0.0);
+    vec2 inPos = vec2(castPos) * (1.0f / PICKER_SIZE) - vec2(0.5);
+    inPos.y = -inPos.y;
         
     if (status == Idle) {
         float d = length(inPos);
@@ -64,30 +67,42 @@ int ColorPicker::mouseMove(float x, float y, int button) {
         else if (d > 0.44 && d < 0.5) {
             status = InRing;
         }
+        else if (0 < castPos.x &&
+                 castPos.x < PICKER_SIZE &&
+                 PICKER_SIZE < castPos.y &&
+                 castPos.y < PICKER_SIZE + PICKER_COLOR_BLOCK_SIZE * 10) {
+            int row = (castPos.y - PICKER_SIZE) / PICKER_COLOR_BLOCK_SIZE;
+            int col = castPos.x / PICKER_COLOR_BLOCK_SIZE;
+            int index = row * LINE_COUNT + col;
+            if (index >= colorBlocks.size()) {
+                close();
+                return 1;
+            }
+            if (left) {
+                if (index == colorBlocks.size() - 1) return 1;
+                pickColor(index);
+            }
+            if (right) {
+                if (index == colorBlocks.size() - 1) addColorBlock();
+                registerColor(index);
+            }
+        }
         else {
             close();
             return 1;
         }
     }
     
-    vec3 color;
     if (status == InRing) {
         hue = atan2(inPos.x, inPos.y) / M_PI / 2;
         if (hue < 0) hue += 1.0;
-        color = hsv_to_rgb(hue, saturate, brightness);
     }
     if (status == InRect) {
         saturate = fmax(0.0f, fmin(1.0f, inPos.x / 0.6 + 0.5));
         brightness = fmax(0.0f, fmin(1.0f, inPos.y / 0.6 + 0.5));
-        color = hsv_to_rgb(hue, saturate, brightness);
     }
+    setColor();
     
-    if (mainScene->selectedItem) {
-        mainScene->selectedItem->currentColor = color;
-    }
-    else {
-        mainScene->currentColor = color;
-    }
     return 1;
 }
 
@@ -101,4 +116,39 @@ void ColorPicker::open() {
 void ColorPicker::close() {
     opened = 0;
     if (mainScene->selectedItem) pushOp(new ColoringOp(lastColor, mainScene->selectedItem));
+}
+
+void ColorPicker::addColorBlock() {
+    int row = (int) colorBlocks.size() / LINE_COUNT;
+    int col = (int) colorBlocks.size() % LINE_COUNT;
+    Rect *block = new Rect(vec3(selfX + col * PICKER_COLOR_BLOCK_SIZE, selfY + PICKER_SIZE + row * PICKER_COLOR_BLOCK_SIZE, 990.0),
+                           vec3(selfX + (col + 1) * PICKER_COLOR_BLOCK_SIZE, selfY + PICKER_SIZE + (row + 1) * PICKER_COLOR_BLOCK_SIZE, 990.0));
+    block->currentColor = vec3(0.0, 0.0, 0.0);
+    block->setMode(Outlined);
+    colorBlocks.push_back(block);
+    savedColors.push_back(vec3(0.0, 0.0, 0.0));
+}
+
+void ColorPicker::registerColor(int index) {
+    Rect *block = colorBlocks[index];
+    block->setMode(Filled);
+    block->currentColor = hsv_to_rgb(hue, saturate, brightness);
+    savedColors[index] = vec3(hue, saturate, brightness);
+}
+
+void ColorPicker::pickColor(int index) {
+    vec3 hsv = savedColors[index];
+    hue = hsv.x;
+    saturate = hsv.y;
+    brightness = hsv.z;
+    setColor();
+}
+void ColorPicker::setColor() {
+    vec3 color = hsv_to_rgb(hue, saturate, brightness);
+    if (mainScene->selectedItem) {
+        mainScene->selectedItem->currentColor = color;
+    }
+    else {
+        mainScene->currentColor = color;
+    }
 }

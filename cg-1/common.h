@@ -21,6 +21,8 @@
 #define PICKER_SIZE 300
 #define BTN_SIZE 32
 #define BTN_GAP 8
+#define DOT_SIZE 10
+#define PICKER_COLOR_BLOCK_SIZE 30
 
 inline int max(const int& a, const int& b) {
     return a > b ? a : b;

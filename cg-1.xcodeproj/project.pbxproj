@@ -44,6 +44,7 @@
 		60030EC029D9BB1C00C1031D /* history.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = history.hpp; sourceTree = "<group>"; };
 		60030EC229DA965000C1031D /* selection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = selection.cpp; sourceTree = "<group>"; };
 		60030EC329DA965000C1031D /* selection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = selection.hpp; sourceTree = "<group>"; };
+		60030EC929DBF8B100C1031D /* selection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selection.png; sourceTree = "<group>"; };
 		600788D429CD41B4004D837B /* dragging.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dragging.cpp; sourceTree = "<group>"; };
 		600788D529CD41B4004D837B /* dragging.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dragging.hpp; sourceTree = "<group>"; };
 		600788D829CD9B3D004D837B /* tools.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tools.cpp; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		600788F629D5B886004D837B /* texture */ = {
 			isa = PBXGroup;
 			children = (
+				60030EC929DBF8B100C1031D /* selection.png */,
 				600788FD29D68EA8004D837B /* circle.png */,
 				600788F929D68EA7004D837B /* hand.png */,
 				600788FA29D68EA7004D837B /* line.png */,

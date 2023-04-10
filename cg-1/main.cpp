@@ -62,7 +62,7 @@ void loadShaders(char *shaderDir) {
 void mouseMoveCallback(GLFWwindow *window, double xpos, double ypos) {
     int left = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
     int right = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
-    if (picker->mouseMove(xpos, ypos, left)) return;
+    if (picker->mouseMove(xpos, ypos, left, right)) return;
     currentTool->mouseMove(xpos, ypos, left, right);
 }
 
@@ -70,7 +70,7 @@ void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods) {
     currentTool->setKeyMods(mods);
     double x, y;
     glfwGetCursorPos(window, &x, &y);
-    if (picker->mouseMove(x, y, action)) return;
+    if (picker->mouseMove(x, y, button == GLFW_MOUSE_BUTTON_LEFT ? action : GLFW_RELEASE, button == GLFW_MOUSE_BUTTON_RIGHT ? action : GLFW_RELEASE)) return;
     if (sideBar->mouseMove(x, y, action)) return;
     currentTool->mouseMove(x, y, button == GLFW_MOUSE_BUTTON_LEFT ? action : GLFW_RELEASE, button == GLFW_MOUSE_BUTTON_RIGHT ? action : GLFW_RELEASE);
 }

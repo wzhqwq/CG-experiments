@@ -13,8 +13,6 @@
 #include "texture.hpp"
 #include "shader.hpp"
 
-#define DOT_SIZE 10
-
 class SelectionRect : public Geometry {
 public:
     SelectionRect(vec3 start, vec3 end) {
