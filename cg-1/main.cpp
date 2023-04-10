@@ -32,9 +32,7 @@ void render() {
         glUniformMatrix4fv(shapeMVPLocation, 1, GL_FALSE, &mainScene->getVPMatrix()[0][0]);
     }
     glUseProgram(programs.shapeProgram);
-    for (auto geo : mainScene->shapes) {
-        geo->paint();
-    }
+    mainScene->render(GL_RENDER);
     if (mainScene->selectionRect && mainScene->selectedItem) {
         mainScene->selectionRect->drawSelf();
     }

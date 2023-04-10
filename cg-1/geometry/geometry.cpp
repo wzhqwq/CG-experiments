@@ -54,8 +54,11 @@ void Geometry::translate(float x, float y) {
     applyTransformation(glm::translate(mat4(1.0f), vec3(x, y, 0)));
 }
 void Geometry::setZIndex(int index) {
-    applyTransformation(glm::translate(mat4(1.0f), vec3(0, 0, index - currentZIndex)));
+    for (int i = 0; i < vertices.size(); i += 2) {
+        vertices[i].z = index;
+    }
     currentZIndex = index;
+    updateBuffer();
 }
 int Geometry::getZIndex() {
     return currentZIndex;

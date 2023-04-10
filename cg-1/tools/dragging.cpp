@@ -8,7 +8,7 @@
 #include "dragging.hpp"
 
 void DragTool::mouseMove(double x, double y, int left, int right) {
-    vec3 p = realPos ? vec3(x, -y, 0) : mainScene->rayCast(x, y);
+    vec3 p = realPos ? vec3(x, -y, 0) : mainScene->toWorldPos(x, y);
     leftButton = left;
     rightButton = right;
     switch (left | right) {
@@ -84,7 +84,7 @@ void DragTool::setKeyMods(int mods) {
 
 void HandTool::dragStart(vec3 start, vec3 end) {
     realStartPoint = start;
-    startPoint = mainScene->rayCast(start.x, -start.y);
+    startPoint = mainScene->toWorldPos(start.x, -start.y);
     startPos = mainScene->getPos();
     startScale = mainScene->getScale();
     dragMove(end);
@@ -101,6 +101,7 @@ void HandTool::dragMove(vec3 end) {
 }
 
 void ManipulateTool::clicked(vec3 p) {
+//    mainScene->rayCast(p.x, p.y);
     int maxZIndex = -1;
     Geometry *selected = NULL;
     for (auto geo : mainScene->shapes) {

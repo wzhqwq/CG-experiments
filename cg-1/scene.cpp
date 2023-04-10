@@ -42,13 +42,44 @@ float Scene::getScale() { return currentScale; }
 vec3 Scene::getPos() { return currentPos; }
 int Scene::isChanged() { return changed; }
 
-vec3 Scene::rayCast(float posX, float posY) {
+vec3 Scene::toWorldPos(float posX, float posY) {
     if (changed) updateVPMatrix();
-    vec4 screenPos = vec4(posX / (w * 0.5f) - 1.0f,
+    vec4 viewPos = vec4(posX / (w * 0.5f) - 1.0f,
                           -(posY / (h * 0.5f) - 1.0f),
                           1.0f,
                           1.0f);
-    vec4 worldPos = invVP * screenPos;
+    vec4 worldPos = invVP * viewPos;
 
     return vec3(worldPos);
+}
+
+void Scene::render(GLenum renderMode) {
+    glRenderMode(renderMode);
+    if (renderMode == GL_SELECT) {
+        glInitNames();
+        glPushName(0);
+    }
+    for (int i = 0; i < shapes.size(); i++) {
+        if (renderMode == GL_SELECT) glLoadName(i);
+        shapes[i]->paint();
+    }
+}
+
+Geometry *Scene::rayCast(float x, float y) {
+    vec4 viewPos = VP * vec4(x, y, 1.0, 1.0);
+    
+    GLuint buffer[100];
+    glSelectBuffer(100, buffer);
+    render(GL_SELECT);
+    
+    glWindowPos2f(viewPos.x, viewPos.y);
+
+    printf("------test %.2f %.2f---------\n", viewPos.x, viewPos.y);
+    for (int i = 0; i < 10; i++) {
+        printf("%u\n", buffer[i]);
+    }
+    int hits = glRenderMode(GL_RENDER);
+    printf("-----hits %d-----\n", hits);
+
+    return NULL;
 }

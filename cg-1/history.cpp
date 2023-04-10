@@ -21,12 +21,14 @@ void DeletionOp::undo() {
 
 void TranslationOp::undo() {
     geometry->translate(-translation.x, -translation.y);
-    mainScene->selectionRect->updateBox(mainScene->selectedItem->getBottomLeft(), mainScene->selectedItem->getTopRight());
+    if (mainScene->selectedItem)
+        mainScene->selectionRect->updateBox(mainScene->selectedItem->getBottomLeft(), mainScene->selectedItem->getTopRight());
 }
 
 void ScalingOp::undo() {
     geometry->scale(1 / scaling.x, 1 / scaling.y, center.x, center.y);
-    mainScene->selectionRect->updateBox(mainScene->selectedItem->getBottomLeft(), mainScene->selectedItem->getTopRight());
+    if (mainScene->selectedItem)
+        mainScene->selectionRect->updateBox(mainScene->selectedItem->getBottomLeft(), mainScene->selectedItem->getTopRight());
 }
 
 void ColoringOp::undo() {

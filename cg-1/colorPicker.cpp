@@ -55,7 +55,7 @@ int ColorPicker::mouseMove(float x, float y, int left, int right) {
         return 1;
     }
     
-    vec3 castPos = fixedScene->rayCast(x, -y) - vec3(selfX, selfY, 0.0);
+    vec3 castPos = fixedScene->toWorldPos(x, -y) - vec3(selfX, selfY, 0.0);
     vec2 inPos = vec2(castPos) * (1.0f / PICKER_SIZE) - vec2(0.5);
     inPos.y = -inPos.y;
         

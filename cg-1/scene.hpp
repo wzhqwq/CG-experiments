@@ -34,7 +34,9 @@ public:
     vec3 getPos();
     int isChanged();
     
-    vec3 rayCast(float x, float y);
+    vec3 toWorldPos(float x, float y);
+    void render(GLenum renderMode);
+    Geometry *rayCast(float x, float y);
     
     vector<Geometry*> shapes;
     vec3 currentColor = vec3(1.0f, 0.0f, 0.0f);
